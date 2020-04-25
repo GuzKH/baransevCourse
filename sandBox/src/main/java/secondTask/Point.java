@@ -18,6 +18,12 @@ public class Point {
         return y;
     }
 
-
-
+    public double distance(Point p2) {
+        double x1 = this.getX();
+        double y1 = this.getY();
+        double x2 = p2.getX();
+        double y2 = p2.getY();
+        double a = Point2D.distance(x1, y1, x2, y2);
+        return a;
+    }
 }
