@@ -1,7 +1,6 @@
-import firstTask.Point;
+import secondTask.Point;
 
-import static java.awt.geom.Point2D.distance;
-import static java.awt.geom.Point2D.distanceSq;
+import java.awt.geom.Point2D;
 
 public class MyFirstProgram{
 
@@ -9,17 +8,25 @@ public class MyFirstProgram{
 		System.out.println("hello, world!");
 		System.out.println("------------");
 
+		Point p1 = new Point(3,4);
+		Point p2 = new Point(7,1);
 
-
-		double x1 = 3;
-		double y1 = 4;
-		double x2 = 7;
-		double y2 = 1;
-		Point p = new Point( x1, y1, x2, y2);
-		System.out.println("Distance between two points: " + p.distance());
+		double v = distance(p1, p2);
+		System.out.println("Distance between two points: " + v);
 		System.out.println("------------");
-
 	}
+
+	public static double distance(Point p1, Point p2) {
+
+		double x1 = p1.getX();
+		double y1 = p1.getY();
+		double x2 = p2.getX();
+		double y2 = p2.getY();
+		double a = Point2D.distance(x1, y1, x2, y2);
+		return a;
+	}
+
+
 
 
 
