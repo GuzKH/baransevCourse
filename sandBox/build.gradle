@@ -2,6 +2,10 @@ apply plugin: 'java'
 apply plugin: 'application'
 mainClassName = "MyFirstProgram"
 
+test{
+    useTestNG()
+}
+
 repositories {
     mavenCentral()
 }
