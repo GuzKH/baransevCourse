@@ -1,4 +1,4 @@
-package fourthTask;
+package fourthTask.model;
 
 public class GroupData {
     private final String name;
