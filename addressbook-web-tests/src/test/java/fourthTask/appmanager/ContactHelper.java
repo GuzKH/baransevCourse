@@ -56,7 +56,7 @@ public class ContactHelper {
     }
 
     public void selectContact() {
-        click(By.id("4"));
+        click(By.id("6"));
     }
 
     public String closeAlertAndGetItsText() {
@@ -72,5 +72,13 @@ public class ContactHelper {
         } finally {
             acceptNextAlert = true;
         }
+    }
+
+    public void editContactCreation() {
+        click(By.xpath("//img[@alt='Edit']"));
+    }
+
+    public void updateContactEdition() {
+        click(By.name("update"));
     }
 }

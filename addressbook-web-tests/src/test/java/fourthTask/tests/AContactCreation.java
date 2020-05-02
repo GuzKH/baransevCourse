@@ -3,7 +3,7 @@ package fourthTask.tests;
 import fourthTask.model.ContactData;
 import org.testng.annotations.Test;
 
-public class ContactCreation extends TestBase {
+public class AContactCreation extends TestBase {
 
     @Test
     public void testContactCreation() throws Exception {

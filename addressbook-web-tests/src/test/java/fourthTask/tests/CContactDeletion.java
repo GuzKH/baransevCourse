@@ -2,7 +2,7 @@ package fourthTask.tests;
 
 import org.testng.annotations.Test;
 
-public class ContactDeletion extends TestBase {
+public class CContactDeletion extends TestBase {
 
     @Test
     public void testContactDeletion() throws Exception {
