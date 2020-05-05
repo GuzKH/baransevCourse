@@ -3,15 +3,17 @@ package fourthTask.model;
 public class ContactData {
     private final String firstName;
     private final String middleName;
+    private String lastName;
     private final String nickname;
     private final String address;
     private final String homeNumber;
     private final String email;
     private String group;
 
-    public ContactData(String firstName, String middleName, String nickname, String address, String homeNumber, String email, String group) {
+    public ContactData(String firstName, String middleName, String lastName, String nickname, String address, String homeNumber, String email, String group) {
         this.firstName = firstName;
         this.middleName = middleName;
+        this.lastName = lastName;
         this.nickname = nickname;
         this.address = address;
         this.homeNumber = homeNumber;
@@ -45,5 +47,9 @@ public class ContactData {
 
     public String getGroup() {
         return group;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 }

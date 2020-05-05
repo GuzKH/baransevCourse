@@ -13,7 +13,7 @@ public class CContactDeletion extends TestBase {
         app.getNavigationHelper().goToHomePage();
         app.getContactHelper().selectContact();
 //        app.getContactHelper().editContactCreation();
-        app.getContactHelper().deleteContact1();
+        app.getContactHelper().deleteContact();
         app.getContactHelper().acceptContactDeletion();
         app.getContactHelper().acceptNextAlert = true;
     }

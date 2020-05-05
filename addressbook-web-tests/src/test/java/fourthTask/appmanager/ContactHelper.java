@@ -24,7 +24,7 @@ public class ContactHelper extends HelperBase {
 
     public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstName());
-        type(By.name("lastname"), lastName());
+        type(By.name("lastname"), contactData.getLastName());
         type(By.name("address"), contactData.getAddress());
         type(By.name("home"), contactData.getHomeNumber());
         type(By.name("email"), contactData.getEmail());
@@ -41,12 +41,7 @@ public class ContactHelper extends HelperBase {
         wd.findElement(locator).clear();
         wd.findElement(locator).sendKeys(text);
     }
-
-    @NotNull
-    public String lastName() {
-        return "test3*";
-    }
-
+    
     public void initContactCreation() {
         click(By.linkText("add new"));
     }
@@ -60,9 +55,6 @@ public class ContactHelper extends HelperBase {
     }
 
     public void deleteContact() {
-        click(By.xpath("//input[@name='update']"));
-    }
-    public void deleteContact1() {
         click(By.xpath("//input[@value='Delete']"));
 
     }
