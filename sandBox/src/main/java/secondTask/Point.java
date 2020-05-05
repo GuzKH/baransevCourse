@@ -2,7 +2,6 @@ package secondTask;
 import java.awt.geom.Point2D;
 
 public class Point {
-  // double x1, y1, x2, y2;
     double x, y;
 
     public Point (double x, double y) {
@@ -23,7 +22,7 @@ public class Point {
         double y1 = this.getY();
         double x2 = p2.getX();
         double y2 = p2.getY();
-        double a = Point2D.distance(x1, y1, x2, y2);
-        return a;
+        return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
     }
+
 }

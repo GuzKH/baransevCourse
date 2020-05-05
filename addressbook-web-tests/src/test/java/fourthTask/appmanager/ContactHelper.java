@@ -41,7 +41,7 @@ public class ContactHelper extends HelperBase {
         wd.findElement(locator).clear();
         wd.findElement(locator).sendKeys(text);
     }
-    
+
     public void initContactCreation() {
         click(By.linkText("add new"));
     }
