@@ -59,7 +59,7 @@ public class ContactHelper extends HelperBase {
         assertTrue(closeAlertAndGetItsText().matches("^Delete 1 addresses[\\s\\S]$"));
     }
 
-    public void deleteConatct() {
+    public void deleteContact() {
         click(By.xpath("//input[@value='Delete']"));
     }
 
