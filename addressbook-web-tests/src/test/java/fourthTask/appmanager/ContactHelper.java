@@ -4,28 +4,36 @@ import fourthTask.model.ContactData;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 import static org.testng.Assert.assertTrue;
 
-public class ContactHelper {
+public class ContactHelper extends HelperBase {
     public boolean acceptNextAlert = true;
-    private WebDriver wd;
 
     public ContactHelper(WebDriver wd) {
-        this.wd = wd;
+        super(wd);
     }
 
     public void submitContactCreation() {
         click(By.xpath("(//input[@name='submit'])[2]"));
     }
 
-    public void fillContactForm(ContactData contactData) {
+    public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstName());
         type(By.name("lastname"), lastName());
         type(By.name("address"), contactData.getAddress());
         type(By.name("home"), contactData.getHomeNumber());
         type(By.name("email"), contactData.getEmail());
+
+        if (creation){
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
     }
 
     public void type(By locator, String text) {
@@ -56,7 +64,7 @@ public class ContactHelper {
     }
 
     public void selectContact() {
-        click(By.id("6"));
+        click(By.id("7"));
     }
 
     public String closeAlertAndGetItsText() {
