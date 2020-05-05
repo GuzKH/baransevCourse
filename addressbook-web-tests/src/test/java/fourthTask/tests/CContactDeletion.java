@@ -1,7 +1,6 @@
 package fourthTask.tests;
 
 import fourthTask.model.ContactData;
-import fourthTask.model.GroupData;
 import org.testng.annotations.Test;
 
 public class CContactDeletion extends TestBase {
