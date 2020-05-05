@@ -60,11 +60,15 @@ public class ContactHelper extends HelperBase {
     }
 
     public void deleteContact() {
+        click(By.xpath("//input[@name='update']"));
+    }
+    public void deleteContact1() {
         click(By.xpath("//input[@value='Delete']"));
+
     }
 
     public void selectContact() {
-        click(By.id("7"));
+        click(By.name("selected[]"));
     }
 
     public String closeAlertAndGetItsText() {
@@ -88,5 +92,15 @@ public class ContactHelper extends HelperBase {
 
     public void updateContactEdition() {
         click(By.name("update"));
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    public void createContact(ContactData contact, boolean b) {
+        initContactCreation();
+        fillContactForm(contact, true);
+        submitContactCreation();
     }
 }
