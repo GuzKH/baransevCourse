@@ -1,5 +1,3 @@
-package seventhTask;
-
 public class Equation {
     public double a;
     public double b;

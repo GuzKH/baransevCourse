@@ -1,6 +1,3 @@
-package secondTask;
-import java.awt.geom.Point2D;
-
 public class Point {
     double x, y;
 

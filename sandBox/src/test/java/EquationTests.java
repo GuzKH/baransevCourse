@@ -1,5 +1,3 @@
-package seventhTask;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

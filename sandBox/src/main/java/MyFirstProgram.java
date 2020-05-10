@@ -1,7 +1,3 @@
-import secondTask.Point;
-
-import java.awt.geom.Point2D;
-
 public class MyFirstProgram{
 
 	public static void main(String[] args){
