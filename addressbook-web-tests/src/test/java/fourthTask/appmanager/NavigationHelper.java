@@ -22,6 +22,13 @@ public class NavigationHelper extends HelperBase {
         if (isElementPresent(By.id("maintable"))) {
             return;
         }
+        click(By.linkText("home page"));
+    }
+
+    public void goToHomePageFromGroupPage() {
+        if (isElementPresent(By.id("maintable"))) {
+            return;
+        }
         click(By.linkText("home"));
     }
 }

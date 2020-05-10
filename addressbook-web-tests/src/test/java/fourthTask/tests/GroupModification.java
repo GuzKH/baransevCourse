@@ -1,6 +1,7 @@
 package fourthTask.tests;
 
 import fourthTask.model.GroupData;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class GroupModification extends TestBase {
@@ -8,6 +9,7 @@ public class GroupModification extends TestBase {
     @Test
     public void testGroupModification() {
         app.getNavigationHelper().goToGroupPage();
+        int before = app.getGroupHelper().getGroupCount();
         if (!app.getGroupHelper().isThereAGroup()) {
             app.getGroupHelper().createGroup(new GroupData("test1", null, null));
         }
@@ -15,5 +17,8 @@ public class GroupModification extends TestBase {
         app.getGroupHelper().initGroupModification();
         app.getGroupHelper().fillGroupForm(new GroupData("test1", "test2", "test3"));
         app.getGroupHelper().submitGroupModification();
+        app.getNavigationHelper().goToGroupPage();
+        int after = app.getGroupHelper().getGroupCount();
+        Assert.assertEquals(after, before);
     }
 }
