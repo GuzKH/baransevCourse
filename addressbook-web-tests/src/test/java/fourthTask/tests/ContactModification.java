@@ -5,7 +5,9 @@ import fourthTask.model.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class BContactModification extends TestBase {
+import java.util.List;
+
+public class ContactModification extends TestBase {
 
     @Test
     public void testContactModification() {
@@ -19,14 +21,14 @@ public class BContactModification extends TestBase {
         }
 
         app.getNavigationHelper().goToHomePage();
-        int before = app.getContactHelper().getContactCount();
+        List<ContactData> before = app.getContactHelper().getContactList();
         app.getContactHelper().selectContact(0);
         app.getContactHelper().editContactCreation();
         app.getContactHelper().fillContactForm(new ContactData("test1*", "test2*", "tt", "test4", "tttt@uu.com", null), false);
         app.getContactHelper().updateContactEdition();
 
         app.getNavigationHelper().goToHomePage();
-        int after = app.getContactHelper().getContactCount();
-        Assert.assertEquals(after, before);
+        List<ContactData> after = app.getContactHelper().getContactList();
+        Assert.assertEquals(after.size(), before.size());
     }
 }

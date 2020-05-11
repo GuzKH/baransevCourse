@@ -5,7 +5,9 @@ import fourthTask.model.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class CContactDeletion extends TestBase {
+import java.util.List;
+
+public class ContactDeletion extends TestBase {
 
     @Test
     public void testContactDeletion() throws Exception {
@@ -20,17 +22,17 @@ public class CContactDeletion extends TestBase {
         }
 
         app.getNavigationHelper().goToHomePageFromGroupPage();
-        int before = app.getContactHelper().getContactCount();
-        app.getContactHelper().selectContact(before -1);
+        List<ContactData> before = app.getContactHelper().getContactList();
+        app.getContactHelper().selectContact(before.size() -1);
 //        app.getContactHelper().editContactCreation();
         app.getContactHelper().deleteContact();
         app.getContactHelper().acceptContactDeletion();
         app.getContactHelper().acceptNextAlert = true;
 
         app.getNavigationHelper().goToHomePageFromGroupPage();
-        Thread.sleep(1000);
-        int after = app.getContactHelper().getContactCount();
-        Assert.assertEquals(after, before - 1);
+        Thread.sleep(5000);
+        List<ContactData> after = app.getContactHelper().getContactList();
+        Assert.assertEquals(after.size(), before.size() - 1);
 
     }
 }
