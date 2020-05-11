@@ -17,12 +17,14 @@ public class BContactModification extends TestBase {
         if (!app.getContactHelper().isThereAContact()) {
             app.getContactHelper().createContact(new ContactData("test1*", "test2*", "tt", "test4", "tttt@uu.com", "test1"), true);
         }
+
         app.getNavigationHelper().goToHomePage();
         int before = app.getContactHelper().getContactCount();
-        app.getContactHelper().selectContact();
+        app.getContactHelper().selectContact(0);
         app.getContactHelper().editContactCreation();
         app.getContactHelper().fillContactForm(new ContactData("test1*", "test2*", "tt", "test4", "tttt@uu.com", null), false);
         app.getContactHelper().updateContactEdition();
+
         app.getNavigationHelper().goToHomePage();
         int after = app.getContactHelper().getContactCount();
         Assert.assertEquals(after, before);
