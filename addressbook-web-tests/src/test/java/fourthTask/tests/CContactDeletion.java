@@ -27,7 +27,8 @@ public class CContactDeletion extends TestBase {
         app.getContactHelper().acceptContactDeletion();
         app.getContactHelper().acceptNextAlert = true;
 
-        app.getNavigationHelper().goToHomePage();
+        app.getNavigationHelper().goToHomePageFromGroupPage();
+        Thread.sleep(1000);
         int after = app.getContactHelper().getContactCount();
         Assert.assertEquals(after, before - 1);
 
