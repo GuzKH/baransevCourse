@@ -28,5 +28,8 @@ public class ContactCreation extends TestBase {
         List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size() + 1);
 
+//        before.add(1);
+//        Assert.assertEquals(before, after);
+
     }
 }

@@ -1,5 +1,7 @@
 package fourthTask.model;
 
+import java.util.Objects;
+
 public class ContactData {
     private final String firstName;
  //   private final String middleName;
@@ -19,6 +21,28 @@ public class ContactData {
         this.homeNumber = homeNumber;
         this.email = email;
         this.group = group;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactData that = (ContactData) o;
+        return Objects.equals(lastName, that.lastName) &&
+                Objects.equals(email, that.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lastName, email);
     }
 
     public String getFirstName() {

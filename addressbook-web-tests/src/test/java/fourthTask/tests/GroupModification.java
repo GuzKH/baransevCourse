@@ -23,5 +23,7 @@ public class GroupModification extends TestBase {
         app.getNavigationHelper().goToGroupPage();
         List<GroupData> after = app.getGroupHelper().getGroupList();
         Assert.assertEquals(after.size(), before.size());
+        Assert.assertEquals(before, after);
+
     }
 }
