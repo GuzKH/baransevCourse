@@ -5,6 +5,7 @@ import fourthTask.model.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class ContactCreation extends TestBase {
@@ -19,17 +20,22 @@ public class ContactCreation extends TestBase {
 
         app.getNavigationHelper().goToHomePageFromGroupPage();
         List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().createContact(new ContactData("test10*", "test2*", "tt", "test4", "tttt@uu.com", "test1"),true);
-//        app.getContactHelper().initContactCreation();
-//        app.getContactHelper().fillContactForm(new ContactData("test1*", "test2*", "tt", "test4", "01234", "tttt@uu.com", "test1"), true);
-//        app.getContactHelper().submitContactCreation();
+        ContactData contact = new ContactData("test10*", "test2*", "tt", "test4", "tttt@uu.com", "test1");
+        app.getContactHelper().createContact(contact,true);
         app.getNavigationHelper().goToHomePage();
      //   Thread.sleep(1000);
         List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size() + 1);
 
-//        before.add(1);
-//        Assert.assertEquals(before, after);
+        int max = 0;
+        for (ContactData g : after){
+            if (g.getId() > max) {
+                max = g.getId();
+            }
+        }
+        contact.setId(max);
+        before.add(contact);
+        Assert.assertEquals(new HashSet<>(before), new HashSet<>(after));
 
     }
 }
