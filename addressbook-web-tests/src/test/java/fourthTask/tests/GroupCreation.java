@@ -33,5 +33,4 @@ public class GroupCreation extends TestBase {
         Assert.assertEquals(before, after);
 
     }
-
 }
