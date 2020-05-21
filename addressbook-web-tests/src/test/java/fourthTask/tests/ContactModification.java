@@ -7,18 +7,17 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class ContactModification extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions(){
-        app.getNavigationHelper().goToGroupPage();
-        if(!app.getGroupHelper().isThereAGroup()){
-            app.getGroupHelper().createGroup(new GroupData("test1", null, null));
+        app.goTo().groupPage();
+        if(!app.group().isThereAGroup()){
+            app.group().create(new GroupData("test1", null, null));
         }
-        app.getNavigationHelper().goToHomePageFromGroupPage();
+        app.goTo().goToHomePageFromGroupPage();
         if (!app.getContactHelper().isThereAContact()) {
             app.getContactHelper().createContact(new ContactData("test1*", "test2*", "tt", "test4", "tttt@uu.com", "test1"), true);
         }
@@ -26,7 +25,7 @@ public class ContactModification extends TestBase {
 
     @Test (enabled = false)
     public void testContactModification() {
-        app.getNavigationHelper().goToHomePage();
+        app.goTo().goToHomePage();
         List<ContactData> before = app.getContactHelper().getContactList();
         app.getContactHelper().selectContact(0);
         app.getContactHelper().editContactCreation();
@@ -34,7 +33,7 @@ public class ContactModification extends TestBase {
         app.getContactHelper().fillContactForm(contact, false);
         app.getContactHelper().updateContactEdition();
 
-        app.getNavigationHelper().goToHomePage();
+        app.goTo().goToHomePage();
         List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size());
 

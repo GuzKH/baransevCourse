@@ -15,9 +15,9 @@ public class ContactCreation extends TestBase {
     public void ensurePreconditions() {
         GroupData group = new GroupData("test1", null, null);
 
-        app.getNavigationHelper().goToGroupPage();
-        if (!app.getGroupHelper().isThereAGroup()) {
-            app.getGroupHelper().createGroup(group);
+        app.goTo().groupPage();
+        if (!app.group().isThereAGroup()) {
+            app.group().create(group);
         }
     }
 
@@ -25,11 +25,11 @@ public class ContactCreation extends TestBase {
     public void testContactCreation() throws Exception {
         GroupData group = new GroupData("test1", null, null);
 
-        app.getNavigationHelper().goToHomePageFromGroupPage();
+        app.goTo().goToHomePageFromGroupPage();
         List<ContactData> before = app.getContactHelper().getContactList();
         ContactData contact = new ContactData("test10*", "test2", "tt", "test4", "tttt@uu.com", group.getName());
         app.getContactHelper().createContact(contact, true);
-        app.getNavigationHelper().goToHomePage();
+        app.goTo().goToHomePage();
         //   Thread.sleep(1000);
         List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size() + 1);
