@@ -12,9 +12,9 @@ import java.util.List;
 public class ContactModification extends TestBase {
 
     @BeforeMethod
-    public void ensurePreconditions(){
+    public void ensurePreconditions() {
         app.goTo().groupPage();
-        if(app.group().list().size() == 0){
+        if (app.group().all().size() == 0) {
             app.group().create(new GroupData().withName("test1"));
         }
         app.goTo().homePageFromGroup();
@@ -32,7 +32,7 @@ public class ContactModification extends TestBase {
     public void testContactModification() {
         app.goTo().homePage();
         List<ContactData> before = app.contact().list();
-        int index = before.size()-1;
+        int index = before.size() - 1;
         ContactData contact = new ContactData()
                 .withId(before.get(index).getId())
                 .withFirstName("test1")
@@ -51,7 +51,7 @@ public class ContactModification extends TestBase {
         before.remove(index);
         before.add(contact);
 
-        Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(),c2.getId());
+        Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
         after.sort(byId);
         before.sort(byId);
 

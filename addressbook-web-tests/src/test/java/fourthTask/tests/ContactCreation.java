@@ -16,7 +16,7 @@ public class ContactCreation extends TestBase {
         GroupData group = new GroupData().withName("test1");
 
         app.goTo().groupPage();
-        if (app.group().list().size() == 0) {
+        if (app.group().all().size() == 0) {
             app.group().create(group);
         }
     }

@@ -5,46 +5,41 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 public class GroupModification extends TestBase {
 
     @BeforeMethod
-    public void ensurePreconditions(){
+    public void ensurePreconditions() {
         // given at least one group
         app.goTo().groupPage();
-        if (app.group().list().size() == 0) {
+        if (app.group().all().size() == 0) {
             app.group().create(new GroupData().withName("Test1"));
         }
     }
 
     @Test
     public void testGroupModification() {
-        List<GroupData> before = app.group().list();
-        int index = before.size()-1;
-        GroupData modifiedGroup = new GroupData()
-                .withId(before.get(index).getId())
+        Set<GroupData> before = app.group().all();
+        GroupData modifiedGroup = before.iterator().next();
+        GroupData group = new GroupData()
+                .withId(modifiedGroup.getId())
                 .withName("test1")
                 .withHeader("test2")
                 .withFooter("test3");
 
         //modify existed group
-        app.group().modifyExistedGroup(index, modifiedGroup);
+        app.group().modifyExistedGroup(group);
         app.goTo().groupPage();
 
         //check whether group amount hasn't changed
-        List<GroupData> after = app.group().list();
+        Set<GroupData> after = app.group().all();
         Assert.assertEquals(after.size(), before.size());
 
         ///////////////
-        before.remove(index);
-        before.add(modifiedGroup);
+        before.remove(modifiedGroup);
+        before.add(group);
         ///////////////
-
-        Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(),g2.getId());
-        after.sort(byId);
-        before.sort(byId);
 
         Assert.assertEquals(before, after);
     }
