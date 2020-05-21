@@ -15,20 +15,31 @@ public class ContactModification extends TestBase {
     public void ensurePreconditions(){
         app.goTo().groupPage();
         if(app.group().list().size() == 0){
-            app.group().create(new GroupData("test1", null, null));
+            app.group().create(new GroupData().withName("test1"));
         }
         app.goTo().homePageFromGroup();
         if ((app.contact().list().size() == 0)) {
-            app.contact().create(new ContactData("test1*", "test2*", "tt", "test4", "tttt@uu.com", "test1"), true);
+            app.contact().create(new ContactData()
+                    .withFirstName("test1")
+                    .withLastName("test2")
+                    .withAddress("tt")
+                    .withEmail("tttt@uu.com")
+                    .withHomeNumber("test4"), true);
         }
     }
 
-    @Test (enabled = false)
+    @Test
     public void testContactModification() {
         app.goTo().homePage();
         List<ContactData> before = app.contact().list();
         int index = before.size()-1;
-        ContactData contact = new ContactData(before.get(index).getId(),"test1*", "test2*", "tt", "test4", "tttt@uu.com", null);
+        ContactData contact = new ContactData()
+                .withId(before.get(index).getId())
+                .withFirstName("test1")
+                .withLastName("test2")
+                .withAddress("tt")
+                .withEmail("tttt@uu.com")
+                .withHomeNumber("test4");
 
         app.contact().modify(contact);
 

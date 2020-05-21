@@ -13,7 +13,7 @@ public class ContactCreation extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        GroupData group = new GroupData("test1", null, null);
+        GroupData group = new GroupData().withName("test1");
 
         app.goTo().groupPage();
         if (app.group().list().size() == 0) {
@@ -21,20 +21,27 @@ public class ContactCreation extends TestBase {
         }
     }
 
-    @Test(enabled = false)
+    @Test
     public void testContactCreation() throws Exception {
-        GroupData group = new GroupData("test1", null, null);
+        GroupData group = new GroupData().withName("test1");
 
         app.goTo().homePageFromGroup();
         List<ContactData> before = app.contact().list();
-        ContactData contact = new ContactData("test10*", "test2", "tt", "test4", "tttt@uu.com", group.getName());
+        ContactData contact = new ContactData()
+                .withFirstName("test1")
+                .withLastName("test2")
+                .withAddress("tt")
+                .withEmail("tttt@uu.com")
+                .withHomeNumber("test4")
+                .withGroup(group.getName());
+
         app.contact().create(contact, true);
         app.goTo().homePage();
         //   Thread.sleep(1000);
         List<ContactData> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size() + 1);
 
-        contact.setId(
+        contact.withId(
                 after.stream()
                         .max((Comparator<ContactData>) (o1, o2) -> Integer.compare(o1.getId(), o2.getId()))
                         .get().getId()

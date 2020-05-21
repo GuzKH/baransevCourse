@@ -15,7 +15,7 @@ public class GroupModification extends TestBase {
         // given at least one group
         app.goTo().groupPage();
         if (app.group().list().size() == 0) {
-            app.group().create(new GroupData("test1", null, null));
+            app.group().create(new GroupData().withName("Test1"));
         }
     }
 
@@ -23,7 +23,11 @@ public class GroupModification extends TestBase {
     public void testGroupModification() {
         List<GroupData> before = app.group().list();
         int index = before.size()-1;
-        GroupData modifiedGroup = new GroupData(before.get(index).getId(), "test1", "test2", "test3");
+        GroupData modifiedGroup = new GroupData()
+                .withId(before.get(index).getId())
+                .withName("test1")
+                .withHeader("test2")
+                .withFooter("test3");
 
         //modify existed group
         app.group().modifyExistedGroup(index, modifiedGroup);

@@ -15,16 +15,21 @@ public class ContactDeletion extends TestBase {
     public void ensurePreconditions(){
         app.goTo().groupPage();
         if(app.group().list().size() == 0){
-            app.group().create(new GroupData("test1", null, null));
+            app.group().create(new GroupData().withName("test1"));
         }
 
         app.goTo().homePageFromGroup();
         if (app.contact().list().size() == 0) {
-            app.contact().create(new ContactData("test1*", "test2*", "tt", "test4", "tttt@uu.com", "test1"), true);
+            app.contact().create(new ContactData()
+                    .withFirstName("test1")
+                    .withLastName("test2")
+                    .withAddress("tt")
+                    .withEmail("tttt@uu.com")
+                    .withHomeNumber("test4"), true);
         }
     }
 
-    @Test (enabled = false)
+    @Test
     public void testContactDeletion() throws Exception {
         app.goTo().homePageFromGroup();
         List<ContactData> before = app.contact().list();

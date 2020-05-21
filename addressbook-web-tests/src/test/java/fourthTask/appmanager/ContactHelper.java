@@ -130,7 +130,13 @@ public class ContactHelper extends HelperBase {
             String email = cells.get(4).getText();
             String phones = cells.get(5).getText();
 
-            ContactData contact = new ContactData(id, firstName, lastName ,address, phones, email, null);
+            ContactData contact = new ContactData()
+                    .withId(id)
+                    .withFirstName(firstName)
+                    .withLastName(lastName)
+                    .withAddress(address)
+                    .withEmail(email)
+                    .withHomeNumber(phones);
             contacts.add(contact);
         }
         return contacts;
