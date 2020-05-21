@@ -3,6 +3,7 @@ package fourthTask.tests;
 import fourthTask.model.ContactData;
 import fourthTask.model.GroupData;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Comparator;
@@ -11,8 +12,8 @@ import java.util.List;
 
 public class ContactModification extends TestBase {
 
-    @Test (enabled = false)
-    public void testContactModification() {
+    @BeforeMethod
+    public void ensurePreconditions(){
         app.getNavigationHelper().goToGroupPage();
         if(!app.getGroupHelper().isThereAGroup()){
             app.getGroupHelper().createGroup(new GroupData("test1", null, null));
@@ -21,7 +22,10 @@ public class ContactModification extends TestBase {
         if (!app.getContactHelper().isThereAContact()) {
             app.getContactHelper().createContact(new ContactData("test1*", "test2*", "tt", "test4", "tttt@uu.com", "test1"), true);
         }
+    }
 
+    @Test (enabled = false)
+    public void testContactModification() {
         app.getNavigationHelper().goToHomePage();
         List<ContactData> before = app.getContactHelper().getContactList();
         app.getContactHelper().selectContact(0);

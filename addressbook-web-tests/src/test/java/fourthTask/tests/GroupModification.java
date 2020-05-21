@@ -2,6 +2,7 @@ package fourthTask.tests;
 
 import fourthTask.model.GroupData;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Collections;
@@ -12,22 +13,23 @@ import java.util.stream.Collectors;
 
 public class GroupModification extends TestBase {
 
-    @Test
-    public void testGroupModification() {
+    @BeforeMethod
+    public void ensurePreconditions(){
         // given at least one group
         app.getNavigationHelper().goToGroupPage();
         if (!app.getGroupHelper().isThereAGroup()) {
             app.getGroupHelper().createGroup(new GroupData("test1", null, null));
         }
+    }
 
+    @Test
+    public void testGroupModification() {
         List<GroupData> before = app.getGroupHelper().getGroupList();
+        int index = before.size()-1;
+        GroupData modifiedGroup = new GroupData(before.get(index).getId(), "test1", "test2", "test3");
 
         //modify existed group
-        app.getGroupHelper().selectGroup(before.size() - 1);
-        app.getGroupHelper().initGroupModification();
-        GroupData modifiedGroup = new GroupData(before.get(before.size() - 1).getId(), "test1", "test2", "test3");
-        app.getGroupHelper().fillGroupForm(modifiedGroup);
-        app.getGroupHelper().submitGroupModification();
+        app.getGroupHelper().modifyExistedGroup(index, modifiedGroup);
         app.getNavigationHelper().goToGroupPage();
 
         //check whether group amount hasn't changed
@@ -35,7 +37,7 @@ public class GroupModification extends TestBase {
         Assert.assertEquals(after.size(), before.size());
 
         ///////////////
-        before.remove(before.size() - 1);
+        before.remove(index);
         before.add(modifiedGroup);
         ///////////////
 
@@ -45,4 +47,5 @@ public class GroupModification extends TestBase {
 
         Assert.assertEquals(before, after);
     }
+
 }
