@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ContactCreation extends TestBase {
 
-    @Test
+    @Test (enabled = false)
     public void testContactCreation() throws Exception {
         GroupData group = new GroupData("test1", null, null);
 
