@@ -16,7 +16,7 @@ public class ContactCreation extends TestBase {
         GroupData group = new GroupData("test1", null, null);
 
         app.goTo().groupPage();
-        if (!app.group().isThereAGroup()) {
+        if (app.group().list().size() == 0) {
             app.group().create(group);
         }
     }
@@ -25,13 +25,13 @@ public class ContactCreation extends TestBase {
     public void testContactCreation() throws Exception {
         GroupData group = new GroupData("test1", null, null);
 
-        app.goTo().goToHomePageFromGroupPage();
-        List<ContactData> before = app.getContactHelper().getContactList();
+        app.goTo().homePageFromGroup();
+        List<ContactData> before = app.contact().list();
         ContactData contact = new ContactData("test10*", "test2", "tt", "test4", "tttt@uu.com", group.getName());
-        app.getContactHelper().createContact(contact, true);
-        app.goTo().goToHomePage();
+        app.contact().create(contact, true);
+        app.goTo().homePage();
         //   Thread.sleep(1000);
-        List<ContactData> after = app.getContactHelper().getContactList();
+        List<ContactData> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size() + 1);
 
         contact.setId(

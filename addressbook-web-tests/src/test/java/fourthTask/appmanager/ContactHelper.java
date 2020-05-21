@@ -37,6 +37,20 @@ public class ContactHelper extends HelperBase {
         }
     }
 
+    public void modify(ContactData contact) {
+        select(0);
+        edit();
+        fillContactForm(contact, false);
+        updateContactEdition();
+    }
+
+    public void delete(int index) {
+        select(index);
+        delete();
+        acceptContactDeletion();
+        acceptNextAlert = true;
+    }
+
     public void type(By locator, String text) {
         click(locator);
         wd.findElement(locator).clear();
@@ -55,12 +69,12 @@ public class ContactHelper extends HelperBase {
         assertTrue(closeAlertAndGetItsText().matches("^Delete 1 addresses[\\s\\S]$"));
     }
 
-    public void deleteContact() {
+    public void delete() {
         click(By.xpath("//input[@value='Delete']"));
 
     }
 
-    public void selectContact(int index) {
+    public void select(int index) {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
@@ -79,7 +93,7 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    public void editContactCreation() {
+    public void edit() {
         click(By.xpath("//img[@alt='Edit']"));
     }
 
@@ -91,7 +105,7 @@ public class ContactHelper extends HelperBase {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public void createContact(ContactData contact, boolean b) {
+    public void create(ContactData contact, boolean b) {
         initContactCreation();
         fillContactForm(contact, true);
         submitContactCreation();
@@ -101,7 +115,7 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<ContactData> getContactList() {
+    public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
 
