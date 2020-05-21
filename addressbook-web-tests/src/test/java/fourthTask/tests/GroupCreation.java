@@ -1,10 +1,17 @@
 package fourthTask.tests;
 
 import fourthTask.model.GroupData;
+import fourthTask.model.Groups;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Set;
+import java.util.regex.Matcher;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class GroupCreation extends TestBase {
 
@@ -12,12 +19,12 @@ public class GroupCreation extends TestBase {
     public void testGroupCreation() throws Exception {
 
         app.goTo().groupPage();
-        Set<GroupData> before = app.group().all();
+        Groups before = app.group().all();
         GroupData group = new GroupData()
                 .withName("Test1");
         app.group().create(group);
-        Set<GroupData> after = app.group().all();
-        Assert.assertEquals(after.size(), before.size() + 1);
+        Groups after = app.group().all();
+        assertThat(after.size(), equalTo(before.size() + 1));
 
 //        group.withId(
 //                after.stream()
@@ -25,9 +32,9 @@ public class GroupCreation extends TestBase {
 //                        .get()
 //                        .getId()
 //        );
-        group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
-        before.add(group);
-        Assert.assertEquals(before, after);
+        assertThat(after, CoreMatchers.equalTo(
+                before.withAdded(group.withId(after.stream()
+                        .mapToInt((g) -> g.getId()).max().getAsInt()))));
 
     }
 }

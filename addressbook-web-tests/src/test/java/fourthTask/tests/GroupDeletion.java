@@ -1,11 +1,13 @@
 package fourthTask.tests;
 
 import fourthTask.model.GroupData;
+import fourthTask.model.Groups;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Set;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class GroupDeletion extends TestBase {
 
@@ -19,16 +21,16 @@ public class GroupDeletion extends TestBase {
 
     @Test
     public void testGroupDeletion() throws Exception {
-        Set<GroupData> before = app.group().all();
+        Groups before = app.group().all();
         GroupData deletedGroup = before.iterator().next();
         app.group().delete(deletedGroup);
         app.group().returnToGroupPage();
-        Set<GroupData> after = app.group().all();
+        Groups after = app.group().all();
 
         Assert.assertEquals(after.size(), before.size() - 1);
 
-        before.remove(deletedGroup);
-        Assert.assertEquals(before, after);
+        assertThat(after, equalTo(before.without(deletedGroup)));
+
 
     }
 
