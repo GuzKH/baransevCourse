@@ -41,25 +41,28 @@ public class ContactHelper extends HelperBase {
         }
     }
 
+    public void create(ContactData contact, boolean b) {
+        initContactCreation();
+        fillContactForm(contact, true);
+        submitContactCreation();
+        contactCache = null;
+    }
+
     public void modify(ContactData contact) {
         selectById(contact.getId());
         edit();
         fillContactForm(contact, false);
         updateContactEdition();
+        contactCache = null;
     }
 
-//    public void delete(int index) {
-//        select(index);
-//        delete();
-//        acceptContactDeletion();
-//        acceptNextAlert = true;
-//    }
 
     public void delete(ContactData сontact) {
         selectById(сontact.getId());
         delete();
         acceptContactDeletion();
         acceptNextAlert = true;
+        contactCache = null;
     }
 
     public void type(By locator, String text) {
@@ -120,12 +123,6 @@ public class ContactHelper extends HelperBase {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public void create(ContactData contact, boolean b) {
-        initContactCreation();
-        fillContactForm(contact, true);
-        submitContactCreation();
-    }
-
     public int getContactCount() {
         return wd.findElements(By.name("selected[]")).size();
     }
@@ -157,8 +154,14 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
+    private Contacts contactCache = null;
+
+
     public Contacts all() {
-        Contacts contacts = new Contacts();
+        if (contactCache != null){
+            return new Contacts (contactCache);
+        }
+        contactCache = new Contacts();
         List<WebElement> elements = wd.findElements(By.name("entry"));
 
         for (WebElement element : elements) {
@@ -179,9 +182,9 @@ public class ContactHelper extends HelperBase {
                     .withAddress(address)
                     .withEmail(email)
                     .withHomeNumber(phones);
-            contacts.add(contact);
+            contactCache.add(contact);
         }
-        return contacts;
+        return new Contacts(contactCache);
     }
 
 }
