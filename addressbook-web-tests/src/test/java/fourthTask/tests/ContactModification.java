@@ -3,12 +3,8 @@ package fourthTask.tests;
 import fourthTask.model.ContactData;
 import fourthTask.model.Contacts;
 import fourthTask.model.GroupData;
-import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -18,18 +14,24 @@ public class ContactModification extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
+        GroupData group = new GroupData().withName("test1");
+
         app.goTo().groupPage();
         if (app.group().all().size() == 0) {
-            app.group().create(new GroupData().withName("test1"));
+            app.group().create(new GroupData().withName(group.getName()));
         }
+
         app.goTo().homePageFromGroup();
-        if ((app.contact().list().size() == 0)) {
+        if (app.contact().all().size() == 0) {
             app.contact().create(new ContactData()
                     .withFirstName("test1")
                     .withLastName("test2")
                     .withAddress("tt")
                     .withEmail("tttt@uu.com")
-                    .withHomeNumber("test4"), true);
+                    .withHomePhone("111")
+                    .withMobilePhone("222")
+                    .withWorkPhone("333")
+                    .withGroup(group.getName()), true);
         }
     }
 
@@ -44,7 +46,9 @@ public class ContactModification extends TestBase {
                 .withLastName("test2")
                 .withAddress("tt")
                 .withEmail("tttt@uu.com")
-                .withHomeNumber("test4");
+                .withHomePhone("111")
+                .withMobilePhone("222")
+                .withWorkPhone("333");
 
         app.contact().modify(contact);
 

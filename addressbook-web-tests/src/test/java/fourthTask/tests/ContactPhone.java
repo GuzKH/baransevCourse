@@ -1,17 +1,14 @@
 package fourthTask.tests;
 
 import fourthTask.model.ContactData;
-import fourthTask.model.Contacts;
 import fourthTask.model.GroupData;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.testng.Assert.assertEquals;
 
-public class ContactDeletion extends TestBase {
-
+public class ContactPhone extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
@@ -36,24 +33,25 @@ public class ContactDeletion extends TestBase {
         }
     }
 
-    @Test
-    public void testContactDeletion() throws Exception {
+
+    @Test (enabled = true)
+    public void testContactPhones(){
         app.goTo().homePageFromGroup();
-        Contacts before = app.contact().all();
-        ContactData deletedContact = before.iterator().next();
-//        int index = before.size() - 1;
+        ContactData contact = app.contact().all().iterator().next();
+        ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
-        app.contact().delete(deletedContact);
+//        assertThat(contact.getHomePhone(), equalTo((contactInfoFromEditForm.getHomePhone())));
+//        assertThat(contact.getMobilePhone(), equalTo((contactInfoFromEditForm.getMobilePhone())));
+//        assertThat(contact.getWorkPhone(), equalTo((contactInfoFromEditForm.getWorkPhone())));
 
-        app.goTo().homePageFromGroup();
-        Thread.sleep(5000);
-        assertThat(app.contact().count(), equalTo(before.size() - 1));
+        assertThat(contact.getHomePhone(), equalTo(cleaned(contactInfoFromEditForm.getHomePhone())));
+        assertThat(contact.getMobilePhone(), equalTo(cleaned(contactInfoFromEditForm.getMobilePhone())));
+        assertThat(contact.getWorkPhone(), equalTo(cleaned(contactInfoFromEditForm.getWorkPhone())));
+    }
 
-        Contacts after = app.contact().all();
-
-        assertThat(after, equalTo(before.without(deletedContact)));
-
-
+    public  String cleaned (String phone){
+        return  phone.replaceAll("\\s", " ")
+                .replaceAll("[-()]", " ");
     }
 
 }

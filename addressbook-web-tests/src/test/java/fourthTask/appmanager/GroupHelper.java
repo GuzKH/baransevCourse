@@ -89,6 +89,7 @@ public class GroupHelper extends HelperBase {
             return new Groups(groupCache);
         }
         groupCache = new Groups();
+
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
             String name = element.getText();

@@ -17,7 +17,7 @@ public class ContactCreation extends TestBase {
 
         app.goTo().groupPage();
         if (app.group().all().size() == 0) {
-            app.group().create(group);
+            app.group().create(new GroupData().withName(group.getName()));
         }
     }
 
@@ -32,7 +32,9 @@ public class ContactCreation extends TestBase {
                 .withLastName("test2")
                 .withAddress("tt")
                 .withEmail("tttt@uu.com")
-                .withHomeNumber("test4")
+                .withHomePhone("111")
+                .withMobilePhone("222")
+                .withWorkPhone("333")
                 .withGroup(group.getName());
 
         app.contact().create(contact, true);
