@@ -1,12 +1,18 @@
 package fourthTask.tests;
 
 import fourthTask.model.ContactData;
+import fourthTask.model.Contacts;
 import fourthTask.model.GroupData;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Set;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.testng.Assert.assertEquals;
 
 public class ContactModification extends TestBase {
 
@@ -30,9 +36,8 @@ public class ContactModification extends TestBase {
     @Test
     public void testContactModification() {
         app.goTo().homePage();
-        Set<ContactData> before = app.contact().all();
+        Contacts before = app.contact().all();
         ContactData modifiedContact = before.iterator().next();
-//        int index = before.size() - 1;
         ContactData contact = new ContactData()
                 .withId((modifiedContact).getId())
                 .withFirstName("test1")
@@ -44,17 +49,14 @@ public class ContactModification extends TestBase {
         app.contact().modify(contact);
 
         app.goTo().homePage();
-        Set<ContactData> after = app.contact().all();
-        Assert.assertEquals(after.size(), before.size());
+        Contacts after = app.contact().all();
+        assertEquals(after.size(), before.size());
 
 
         before.remove(modifiedContact);
         before.add(contact);
 
-//        Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
-//        after.sort(byId);
-//        before.sort(byId);
-
-        Assert.assertEquals(before, after);
+        assertEquals(before, after);
+        assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
     }
 }

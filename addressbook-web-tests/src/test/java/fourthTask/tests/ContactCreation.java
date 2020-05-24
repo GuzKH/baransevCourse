@@ -1,12 +1,13 @@
 package fourthTask.tests;
 
 import fourthTask.model.ContactData;
+import fourthTask.model.Contacts;
 import fourthTask.model.GroupData;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Set;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class ContactCreation extends TestBase {
 
@@ -25,7 +26,7 @@ public class ContactCreation extends TestBase {
         GroupData group = new GroupData().withName("test1");
 
         app.goTo().homePageFromGroup();
-        Set<ContactData> before = app.contact().all();
+        Contacts before = app.contact().all();
         ContactData contact = new ContactData()
                 .withFirstName("test1")
                 .withLastName("test2")
@@ -37,14 +38,16 @@ public class ContactCreation extends TestBase {
         app.contact().create(contact, true);
         app.goTo().homePage();
         //   Thread.sleep(1000);
-        Set<ContactData> after = app.contact().all();
-        Assert.assertEquals(after.size(), before.size() + 1);
+        Contacts after = app.contact().all();
+        assertThat(after.size(), equalTo(before.size() + 1));
 
-        contact.withId(
-                after.stream()
-                        .mapToInt((c) -> c.getId()).max().getAsInt());
-        before.add(contact);
-        Assert.assertEquals(before, after);
+        ;
+        assertThat(after, equalTo(before.withAdded(
+                contact.withId(
+                        after.stream()
+                                .mapToInt((c) -> c.getId()).max().getAsInt())
+        )));
 
     }
+
 }

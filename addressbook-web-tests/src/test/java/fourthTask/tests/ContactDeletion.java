@@ -1,12 +1,18 @@
 package fourthTask.tests;
 
 import fourthTask.model.ContactData;
+import fourthTask.model.Contacts;
 import fourthTask.model.GroupData;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Set;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.testng.Assert.assertEquals;
 
 public class ContactDeletion extends TestBase {
 
@@ -32,7 +38,7 @@ public class ContactDeletion extends TestBase {
     @Test
     public void testContactDeletion() throws Exception {
         app.goTo().homePageFromGroup();
-        Set<ContactData> before = app.contact().all();
+        Contacts before = app.contact().all();
         ContactData deletedContact = before.iterator().next();
 //        int index = before.size() - 1;
 
@@ -40,11 +46,11 @@ public class ContactDeletion extends TestBase {
 
         app.goTo().homePageFromGroup();
         Thread.sleep(5000);
-        Set<ContactData> after = app.contact().all();
-        Assert.assertEquals(after.size(), before.size() - 1);
+        Contacts after = app.contact().all();
 
-        before.remove(deletedContact);
-        Assert.assertEquals(before, after);
+        assertEquals(after.size(), before.size() - 1);
+
+        assertThat(after, equalTo(before.without(deletedContact)));
 
 
     }
