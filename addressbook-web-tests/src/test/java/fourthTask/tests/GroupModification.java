@@ -39,14 +39,8 @@ public class GroupModification extends TestBase {
 
         //check whether group amount hasn't changed
         Groups after = app.group().all();
-        Assert.assertEquals(after.size(), before.size());
 
-//        ///////////////
-//        before.remove(modifiedGroup);
-//        before.add(group);
-//        ///////////////
-//
-//        Assert.assertEquals(before, after);
+        Assert.assertEquals(after.size(), before.size());
         assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
     }
 

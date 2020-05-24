@@ -38,9 +38,9 @@ public class GroupHelper extends HelperBase {
         click(By.name("delete"));
     }
 
-//    public void selectGroup(int index) {
-//        wd.findElements(By.name("selected[]")).get(index).click();
-//    }
+    public void selectGroup(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
+    }
 
     public void selectGroupById(int id) {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
@@ -67,23 +67,23 @@ public class GroupHelper extends HelperBase {
         fillGroupForm(group);
         submitGroupModification();
     }
-//    public void delete(int index) {
-//        selectGroup(index);
-//        deleteGroup();
-//    }
+    public void delete(int index) {
+        selectGroup(index);
+        deleteGroup();
+    }
 
     public void delete(GroupData group) {
         selectGroupById(group.getId());
         deleteGroup();
     }
 
-//    public boolean isThereAGroup() {
-//        return isElementPresent(By.name("selected[]"));
-//    }
-//
-//    public int getGroupCount() {
-//       return wd.findElements(By.name("selected[]")).size();
-//    }
+    public boolean isThereAGroup() {
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    public int getGroupCount() {
+       return wd.findElements(By.name("selected[]")).size();
+    }
 
 //    public List<GroupData> list() {
 //        List<GroupData> groups = new ArrayList<GroupData>();
@@ -94,8 +94,9 @@ public class GroupHelper extends HelperBase {
 //            groups.add(new GroupData().withId(id).withName(name));
 //        }
 //        return groups;
+//
+//        }
 
-    //    }
     public Groups all() {
         Groups groups = new Groups();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
