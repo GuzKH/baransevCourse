@@ -2,7 +2,6 @@ package fourthTask.tests;
 
 import fourthTask.model.GroupData;
 import fourthTask.model.Groups;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

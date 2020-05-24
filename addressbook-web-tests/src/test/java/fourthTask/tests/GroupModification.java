@@ -2,12 +2,9 @@ package fourthTask.tests;
 
 import fourthTask.model.GroupData;
 import fourthTask.model.Groups;
-import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;

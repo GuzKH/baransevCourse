@@ -1,14 +1,17 @@
 package fourthTask.appmanager;
 
 import fourthTask.model.ContactData;
-import fourthTask.model.GroupData;
-import org.jetbrains.annotations.NotNull;
-import org.openqa.selenium.*;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.testng.Assert.assertTrue;
 
@@ -38,14 +41,21 @@ public class ContactHelper extends HelperBase {
     }
 
     public void modify(ContactData contact) {
-        select(0);
+        selectById(contact.getId());
         edit();
         fillContactForm(contact, false);
         updateContactEdition();
     }
 
-    public void delete(int index) {
-        select(index);
+//    public void delete(int index) {
+//        select(index);
+//        delete();
+//        acceptContactDeletion();
+//        acceptNextAlert = true;
+//    }
+
+    public void delete(ContactData сontact) {
+        selectById(сontact.getId());
         delete();
         acceptContactDeletion();
         acceptNextAlert = true;
@@ -71,11 +81,15 @@ public class ContactHelper extends HelperBase {
 
     public void delete() {
         click(By.xpath("//input[@value='Delete']"));
-
     }
+
 
     public void select(int index) {
         wd.findElements(By.name("selected[]")).get(index).click();
+    }
+
+    public void selectById(int id) {
+        wd.findElement(By.cssSelector("input[value = '" + id + "']")).click();
     }
 
     public String closeAlertAndGetItsText() {
@@ -119,7 +133,7 @@ public class ContactHelper extends HelperBase {
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
 
-        for (WebElement element : elements){
+        for (WebElement element : elements) {
             //String name = element.getText();
 
             List<WebElement> cells = element.findElements(By.tagName("td"));
@@ -141,4 +155,32 @@ public class ContactHelper extends HelperBase {
         }
         return contacts;
     }
+
+    public Set<ContactData> all() {
+        Set<ContactData> contacts = new HashSet<ContactData>();
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+
+        for (WebElement element : elements) {
+            //String name = element.getText();
+
+            List<WebElement> cells = element.findElements(By.tagName("td"));
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            String lastName = cells.get(1).getText();
+            String firstName = cells.get(2).getText();
+            String address = cells.get(3).getText();
+            String email = cells.get(4).getText();
+            String phones = cells.get(5).getText();
+
+            ContactData contact = new ContactData()
+                    .withId(id)
+                    .withFirstName(firstName)
+                    .withLastName(lastName)
+                    .withAddress(address)
+                    .withEmail(email)
+                    .withHomeNumber(phones);
+            contacts.add(contact);
+        }
+        return contacts;
+    }
+
 }

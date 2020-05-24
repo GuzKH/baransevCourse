@@ -6,9 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class GroupHelper extends HelperBase {
 
@@ -67,10 +65,10 @@ public class GroupHelper extends HelperBase {
         fillGroupForm(group);
         submitGroupModification();
     }
-    public void delete(int index) {
-        selectGroup(index);
-        deleteGroup();
-    }
+//    public void delete(int index) {
+//        selectGroup(index);
+//        deleteGroup();
+//    }
 
     public void delete(GroupData group) {
         selectGroupById(group.getId());
@@ -82,7 +80,7 @@ public class GroupHelper extends HelperBase {
     }
 
     public int getGroupCount() {
-       return wd.findElements(By.name("selected[]")).size();
+        return wd.findElements(By.name("selected[]")).size();
     }
 
 //    public List<GroupData> list() {
