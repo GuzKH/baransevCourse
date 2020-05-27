@@ -5,6 +5,10 @@ import fourthTask.model.GroupData;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -44,12 +48,20 @@ public class ContactPhone extends TestBase {
 //        assertThat(contact.getMobilePhone(), equalTo((contactInfoFromEditForm.getMobilePhone())));
 //        assertThat(contact.getWorkPhone(), equalTo((contactInfoFromEditForm.getWorkPhone())));
 
-        assertThat(contact.getHomePhone(), equalTo(cleaned(contactInfoFromEditForm.getHomePhone())));
-        assertThat(contact.getMobilePhone(), equalTo(cleaned(contactInfoFromEditForm.getMobilePhone())));
-        assertThat(contact.getWorkPhone(), equalTo(cleaned(contactInfoFromEditForm.getWorkPhone())));
+        assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
+//        assertThat(contact.getMobilePhone(), equalTo(cleaned(contactInfoFromEditForm.getMobilePhone())));
+//        assertThat(contact.getWorkPhone(), equalTo(cleaned(contactInfoFromEditForm.getWorkPhone())));
     }
 
-    public  String cleaned (String phone){
+    // метод обрытных проверок
+    private String mergePhones(ContactData contact) {
+        return Arrays.asList(contact.getHomePhone(),contact.getMobilePhone(),contact.getWorkPhone())
+                .stream().filter((s) -> ! s.equals(""))
+                .map(ContactPhone::cleaned)   //чистка
+                .collect(Collectors.joining("\n"));
+    }
+
+    public static String cleaned(String phone){
         return  phone.replaceAll("\\s", " ")
                 .replaceAll("[-()]", " ");
     }
