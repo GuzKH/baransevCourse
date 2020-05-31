@@ -6,6 +6,8 @@ import fourthTask.model.GroupData;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.io.File;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -27,9 +29,11 @@ public class ContactCreation extends TestBase {
 
         app.goTo().homePageFromGroup();
         Contacts before = app.contact().all();
+        File photo = new File("src/test/resources/stru.png");
         ContactData contact = new ContactData()
                 .withFirstName("test1")
                 .withLastName("test2")
+                .withPhoto(photo)
                 .withAddress("tt")
                 .withEmail("tttt@uu.com")
                 .withHomePhone("111")
@@ -50,5 +54,14 @@ public class ContactCreation extends TestBase {
         )));
 
     }
+
+//    @Test
+//    public void testCurrentDir(){
+//        File currentDir = new File(" . ");
+//        System.out.println(currentDir.getAbsolutePath());
+//        File photo = new File("src/test/resources/stru.png");
+//        System.out.println(photo.getAbsolutePath());
+//        System.out.println(currentDir.exists());
+//    }
 
 }
