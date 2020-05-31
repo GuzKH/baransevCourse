@@ -23,7 +23,7 @@ public class ContactDataGenerator {
 
         Writer writer = new FileWriter(file);
         for (ContactData contact : contacts) {
-            writer.write(String.format("%s;%s;%s\n",
+            writer.write(String.format("%s;%s;%s;%s;%s\n",
                     contact.getFirstName(),
                     contact.getLastName(),
                     contact.getAddress(),
@@ -36,11 +36,11 @@ public class ContactDataGenerator {
     private static List<ContactData> generateContact(int count) {
         List<ContactData> contacts = new ArrayList<ContactData>();
         for (int i = 0; i < count; i++) {
-            contacts.add(new ContactData().withFirstName(String.format("%s", i))
-                    .withLastName(String.format("%s", i))
-                    .withAddress(String.format("t %s", i))
-                    .withEmail(String.format("t %s", i))
-                    .withAllPhones(String.format("t %s", i)));
+            contacts.add(new ContactData().withFirstName(String.format("test %s", i))
+                    .withLastName(String.format("test %s", i))
+                    .withAddress(String.format("test %s", i))
+                    .withEmail(String.format("test@%s", i))
+                    .withAllPhones(String.format("981111111%s", i)));
         }
         return contacts;
     }
