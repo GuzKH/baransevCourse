@@ -13,4 +13,5 @@ dependencies {
     implementation 'org.seleniumhq.selenium:selenium-java:4.0.0-alpha-5'
     testCompile group: 'org.slf4j', name: 'slf4j-nop', version: '2.0.0-alpha1'
     implementation 'org.hamcrest:hamcrest:2.2'
+    implementation 'com.beust:jcommander:1.78'
 }
