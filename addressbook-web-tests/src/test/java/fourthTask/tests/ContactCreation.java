@@ -4,14 +4,29 @@ import fourthTask.model.ContactData;
 import fourthTask.model.Contacts;
 import fourthTask.model.GroupData;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class ContactCreation extends TestBase {
+
+    // Провайдер тестовых данных для отчетов
+    @DataProvider
+    public Iterator<Object[]> validContacts() {
+        List<Object[]> list = new ArrayList<Object[]>();
+        File photo = new File("src/test/resources/stru.png");
+        list.add(new Object[]{new ContactData().withFirstName("test 0").withLastName("test 0").withPhoto(photo).withAddress("test 0").withEmail("test@0").withAllPhones("9811111110").withGroup("test1")});
+        list.add(new Object[]{new ContactData().withFirstName("test 1").withLastName("test 1").withPhoto(photo).withAddress("test 1").withEmail("test@1").withAllPhones("9811111111").withGroup("test1")});
+        list.add(new Object[]{new ContactData().withFirstName("test 2").withLastName("test 2").withPhoto(photo).withAddress("test 2").withEmail("test@2").withAllPhones("9811111112").withGroup("test1")});
+        return list.iterator();
+    }
 
     @BeforeMethod
     public void ensurePreconditions() {
@@ -23,40 +38,22 @@ public class ContactCreation extends TestBase {
         }
     }
 
-    @Test
-    public void testContactCreation() throws Exception {
-        GroupData group = new GroupData().withName("test1");
+    @Test(dataProvider = "validContacts")
+    public void testContactCreation(ContactData contact) throws Exception {
+        app.goTo().homePageFromGroup();
+        Contacts before = app.contact().all();
 
-        String[] names = new String[]{"test1", "test2", "test3"};
+        app.contact().create(contact, true);
+        app.goTo().homePage();
+        //   Thread.sleep(1000);
+        assertThat(app.contact().count(), equalTo(before.size() + 1));
+        Contacts after = app.contact().all();
 
-        for (String name : names) {
-            app.goTo().homePageFromGroup();
-            Contacts before = app.contact().all();
-            File photo = new File("src/test/resources/stru.png");
-            ContactData contact = new ContactData()
-                    .withFirstName("test1")
-                    .withLastName("test2")
-                    .withPhoto(photo)
-                    .withAddress("tt")
-                    .withEmail("tttt@uu.com")
-                    .withHomePhone("111")
-                    .withMobilePhone("222")
-                    .withWorkPhone("333")
-                    .withGroup(group.getName());
-
-            app.contact().create(contact, true);
-            app.goTo().homePage();
-            //   Thread.sleep(1000);
-            assertThat(app.contact().count(), equalTo(before.size() + 1));
-            Contacts after = app.contact().all();
-
-            assertThat(after, equalTo(before.withAdded(
-                    contact.withId(
-                            after.stream()
-                                    .mapToInt((c) -> c.getId()).max().getAsInt())
-            )));
-
-        }
+        assertThat(after, equalTo(before.withAdded(
+                contact.withId(
+                        after.stream()
+                                .mapToInt((c) -> c.getId()).max().getAsInt())
+        )));
 
 
     }
