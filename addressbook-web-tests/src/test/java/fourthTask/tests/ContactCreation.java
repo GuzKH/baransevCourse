@@ -27,31 +27,37 @@ public class ContactCreation extends TestBase {
     public void testContactCreation() throws Exception {
         GroupData group = new GroupData().withName("test1");
 
-        app.goTo().homePageFromGroup();
-        Contacts before = app.contact().all();
-        File photo = new File("src/test/resources/stru.png");
-        ContactData contact = new ContactData()
-                .withFirstName("test1")
-                .withLastName("test2")
-                .withPhoto(photo)
-                .withAddress("tt")
-                .withEmail("tttt@uu.com")
-                .withHomePhone("111")
-                .withMobilePhone("222")
-                .withWorkPhone("333")
-                .withGroup(group.getName());
+        String[] names = new String[]{"test1", "test2", "test3"};
 
-        app.contact().create(contact, true);
-        app.goTo().homePage();
-        //   Thread.sleep(1000);
-        assertThat(app.contact().count(), equalTo(before.size() + 1));
-        Contacts after = app.contact().all();
+        for (String name : names) {
+            app.goTo().homePageFromGroup();
+            Contacts before = app.contact().all();
+            File photo = new File("src/test/resources/stru.png");
+            ContactData contact = new ContactData()
+                    .withFirstName("test1")
+                    .withLastName("test2")
+                    .withPhoto(photo)
+                    .withAddress("tt")
+                    .withEmail("tttt@uu.com")
+                    .withHomePhone("111")
+                    .withMobilePhone("222")
+                    .withWorkPhone("333")
+                    .withGroup(group.getName());
 
-        assertThat(after, equalTo(before.withAdded(
-                contact.withId(
-                        after.stream()
-                                .mapToInt((c) -> c.getId()).max().getAsInt())
-        )));
+            app.contact().create(contact, true);
+            app.goTo().homePage();
+            //   Thread.sleep(1000);
+            assertThat(app.contact().count(), equalTo(before.size() + 1));
+            Contacts after = app.contact().all();
+
+            assertThat(after, equalTo(before.withAdded(
+                    contact.withId(
+                            after.stream()
+                                    .mapToInt((c) -> c.getId()).max().getAsInt())
+            )));
+
+        }
+
 
     }
 
