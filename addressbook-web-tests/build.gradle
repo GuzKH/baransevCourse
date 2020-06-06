@@ -16,4 +16,5 @@ dependencies {
     implementation 'com.beust:jcommander:1.78'
 //    implementation 'com.thoughtworks.xstream:xstream:1.4.12-java7'
     implementation 'com.thoughtworks.xstream:xstream:1.4.12'
+    implementation 'com.google.code.gson:gson:2.8.6'
 }
