@@ -32,8 +32,6 @@ public class ContactDataGenerator {
         }
         generator.run();
 
-//        int count = Integer.parseInt(args[0]);
-//        File file = new File(args[1]);
     }
 
     private void run() throws IOException {
@@ -46,12 +44,14 @@ public class ContactDataGenerator {
 
         Writer writer = new FileWriter(file);
         for (ContactData contact : contacts) {
-            writer.write(String.format("%s;%s;%s;%s;%s\n",
+            writer.write(String.format("%s;%s;%s;%s;%s;%s\n",
                     contact.getFirstName(),
                     contact.getLastName(),
                     contact.getAddress(),
                     contact.getEmail(),
-                    contact.getAllPhones()));
+                    contact.getAllPhones(),
+                    contact.getGroup()));
+
         }
         writer.close();
     }
@@ -60,10 +60,11 @@ public class ContactDataGenerator {
         List<ContactData> contacts = new ArrayList<ContactData>();
         for (int i = 0; i < count; i++) {
             contacts.add(new ContactData().withFirstName(String.format("First name: test %s", i))
-                    .withLastName(String.format(" Last name: test %s", i))
-                    .withAddress(String.format(" Address: test %s", i))
-                    .withEmail(String.format(" Email: test@%s", i))
-                    .withAllPhones(String.format(" Phone(s): 981111111%s", i)));
+                    .withLastName(String.format("Last name: test %s", i))
+                    .withAddress(String.format("Address: test %s", i))
+                    .withEmail(String.format("Email: test@%s", i))
+                    .withAllPhones(String.format("Phone(s): 981111111%s", i))
+                    .withGroup(String.format("test%s", 1)));
         }
         return contacts;
     }
