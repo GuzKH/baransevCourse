@@ -1,6 +1,6 @@
 apply plugin: 'java'
 
-test{
+test {
     useTestNG()
 }
 
@@ -17,4 +17,22 @@ dependencies {
 //    implementation 'com.thoughtworks.xstream:xstream:1.4.12-java7'
     implementation 'com.thoughtworks.xstream:xstream:1.4.12'
     implementation 'com.google.code.gson:gson:2.8.6'
+}
+
+//test{
+//    useTestNG{
+//        suites 'src/test/resources/testng.xml'
+//    }
+
+task testGroups(type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testng-groups.xml'
+
+    }
+}
+
+task testContacts(type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testng-contacts.xml'
+    }
 }

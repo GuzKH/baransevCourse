@@ -90,11 +90,11 @@ public class ContactDataGenerator {
     private List<ContactData> generateContact(int count) {
         List<ContactData> contacts = new ArrayList<ContactData>();
         for (int i = 0; i < count; i++) {
-            contacts.add(new ContactData().withFirstName(String.format("First name: test %s", i))
-                    .withLastName(String.format("Last name: test %s", i))
-                    .withAddress(String.format("Address: test %s", i))
-                    .withEmail(String.format("Email: test@%s", i))
-                    .withAllPhones(String.format("Phone(s): 981111111%s", i))
+            contacts.add(new ContactData().withFirstName(String.format("test %s", i))
+                    .withLastName(String.format("test %s", i))
+                    .withAddress(String.format("test %s", i))
+                    .withEmail(String.format("test@%s", i))
+                    .withAllPhones(String.format("981111111%s", i))
                     .withGroup(String.format("test%s", 1)));
         }
         return contacts;

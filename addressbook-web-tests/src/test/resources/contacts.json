@@ -1,23 +1,23 @@
 [
   {
-    "firstName": "First name: test 0",
-    "lastName": "Last name: test 0",
-    "address": "Address: test 0",
-    "email": "Email: test@0",
+    "firstName": "test 0",
+    "lastName": "test 0",
+    "address": "test 0",
+    "email": "test@0",
     "group": "test1"
   },
   {
-    "firstName": "First name: test 1",
-    "lastName": "Last name: test 1",
-    "address": "Address: test 1",
-    "email": "Email: test@1",
+    "firstName": "test 1",
+    "lastName": "test 1",
+    "address": "test 1",
+    "email": "test@1",
     "group": "test1"
   },
   {
-    "firstName": "First name: test 2",
-    "lastName": "Last name: test 2",
-    "address": "Address: test 2",
-    "email": "Email: test@2",
+    "firstName": "test 2",
+    "lastName": "test 2",
+    "address": "test 2",
+    "email": "test@2",
     "group": "test1"
   }
 ]

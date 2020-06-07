@@ -1,29 +1,29 @@
 <list>
   <fourthTask.model.ContactData>
     <id>2147483647</id>
-    <firstName>First name: test 0</firstName>
-    <lastName>Last name: test 0</lastName>
-    <address>Address: test 0</address>
-    <email>Email: test@0</email>
+    <firstName>test 0</firstName>
+    <lastName>test 0</lastName>
+    <address>test 0</address>
+    <email>test@0</email>
     <group>test1</group>
-    <allPhones>Phone(s): 9811111110</allPhones>
+    <allPhones>9811111110</allPhones>
   </fourthTask.model.ContactData>
   <fourthTask.model.ContactData>
     <id>2147483647</id>
-    <firstName>First name: test 1</firstName>
-    <lastName>Last name: test 1</lastName>
-    <address>Address: test 1</address>
-    <email>Email: test@1</email>
+    <firstName>test 1</firstName>
+    <lastName>test 1</lastName>
+    <address>test 1</address>
+    <email>test@1</email>
     <group>test1</group>
-    <allPhones>Phone(s): 9811111111</allPhones>
+    <allPhones>9811111111</allPhones>
   </fourthTask.model.ContactData>
   <fourthTask.model.ContactData>
     <id>2147483647</id>
-    <firstName>First name: test 2</firstName>
-    <lastName>Last name: test 2</lastName>
-    <address>Address: test 2</address>
-    <email>Email: test@2</email>
+    <firstName>test 2</firstName>
+    <lastName>test 2</lastName>
+    <address>test 2</address>
+    <email>test@2</email>
     <group>test1</group>
-    <allPhones>Phone(s): 9811111112</allPhones>
+    <allPhones>9811111112</allPhones>
   </fourthTask.model.ContactData>
 </list>
