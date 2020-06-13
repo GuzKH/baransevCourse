@@ -5,6 +5,8 @@ import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import fourthTask.model.GroupData;
 import fourthTask.model.Groups;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -21,6 +23,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class GroupCreation extends TestBase {
+
+   // Logger logger = LoggerFactory.getLogger(GroupCreation.class);
 
     // Провайдер тестовых данных для отчетов
     @DataProvider
@@ -59,7 +63,6 @@ public class GroupCreation extends TestBase {
 
     @Test(dataProvider = "validGroupsFromJson")
     public void testGroupCreation(GroupData group) throws Exception {
-
         app.goTo().groupPage();
         Groups before = app.group().all();
         app.group().create(group);
