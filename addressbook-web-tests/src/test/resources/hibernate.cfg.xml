@@ -35,6 +35,7 @@
 
         <!-- Names the annotated entity class -->
         <mapping class="fourthTask.model.GroupData"/>
+        <mapping class="fourthTask.model.ContactData"/>
 
     </session-factory>
 
