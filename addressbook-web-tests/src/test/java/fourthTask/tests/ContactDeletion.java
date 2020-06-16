@@ -17,13 +17,14 @@ public class ContactDeletion extends TestBase {
     public void ensurePreconditions() {
         GroupData group = new GroupData().withName("test1");
 
-        app.goTo().groupPage();
-        if (app.group().all().size() == 0) {
+        if (app.db().groups().size() == 0) {
+            app.goTo().groupPage();
             app.group().create(new GroupData().withName(group.getName()));
         }
 
-        app.goTo().homePageFromGroup();
-        if (app.contact().all().size() == 0) {
+
+        if (app.db().contacts().size() == 0) {
+            app.goTo().homePageFromGroup();
             app.contact().create(new ContactData()
                     .withFirstName("test1")
                     .withLastName("test2")
@@ -39,7 +40,7 @@ public class ContactDeletion extends TestBase {
     @Test
     public void testContactDeletion() throws Exception {
         app.goTo().homePageFromGroup();
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData deletedContact = before.iterator().next();
 //        int index = before.size() - 1;
 
@@ -49,7 +50,7 @@ public class ContactDeletion extends TestBase {
         Thread.sleep(5000);
         assertThat(app.contact().count(), equalTo(before.size() - 1));
 
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
 
         assertThat(after, equalTo(before.without(deletedContact)));
 

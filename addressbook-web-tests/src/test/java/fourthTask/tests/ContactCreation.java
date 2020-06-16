@@ -57,33 +57,37 @@ public class ContactCreation extends TestBase {
                 line = reader.readLine();
             }
             Gson gson = new Gson();
-            List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>() {
-            }.getType());  //List<ContactData>.class
-            return contacts.stream().map((c) -> new Object[]{c}).collect(Collectors.toList()).iterator();
+            List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>() {}.getType());  //List<ContactData>.class
+
+            return contacts.stream()
+                    .map((c) -> new Object[]{c})
+                    .collect(Collectors.toList())
+                    .iterator();
         }
     }
 
     @BeforeMethod
     public void ensurePreconditions() {
         GroupData group = new GroupData().withName("test1");
-
-        app.goTo().groupPage();
-        if (app.group().all().size() == 0) {
+        if (app.db().groups().size() == 0) {
+            app.goTo().groupPage();
             app.group().create(new GroupData().withName(group.getName()));
         }
     }
 
     @Test(dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData contact) throws Exception {
+        File photo = new File("src/test/resources/stru.png");
+
         app.goTo().homePageFromGroup();
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
 
         app.contact().create(contact, true);
         app.goTo().homePage();
         //   Thread.sleep(1000);
         assertThat(app.contact().count(), equalTo(before.size() + 1));
-        Contacts after = app.contact().all();
 
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(before.withAdded(
                 contact.withId(
                         after.stream()

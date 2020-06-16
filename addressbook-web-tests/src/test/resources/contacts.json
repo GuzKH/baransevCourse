@@ -4,20 +4,8 @@
     "lastName": "test 0",
     "address": "test 0",
     "email": "test@0",
-    "group": "test1"
-  },
-  {
-    "firstName": "test 1",
-    "lastName": "test 1",
-    "address": "test 1",
-    "email": "test@1",
-    "group": "test1"
-  },
-  {
-    "firstName": "test 2",
-    "lastName": "test 2",
-    "address": "test 2",
-    "email": "test@2",
-    "group": "test1"
+    "group": "test1",
+    "photo": "src\\test\\resources\\stru.png",
+    "allPhones": "9811111110"
   }
 ]

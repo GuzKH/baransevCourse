@@ -76,9 +76,10 @@ public class ContactDataGenerator {
         try (Writer writer = new FileWriter(file)) {
 
             for (ContactData contact : contacts) {
-                writer.write(String.format("%s;%s;%s;%s;%s;%s\n",
+                writer.write(String.format("%s;%s;%s;%s;%s;%s;%s\n",
                         contact.getFirstName(),
                         contact.getLastName(),
+                        contact.getPhoto(),
                         contact.getAddress(),
                         contact.getEmail(),
                         contact.getAllPhones(),
@@ -92,6 +93,7 @@ public class ContactDataGenerator {
         for (int i = 0; i < count; i++) {
             contacts.add(new ContactData().withFirstName(String.format("test %s", i))
                     .withLastName(String.format("test %s", i))
+                    .withPhoto(new File("src/test/resources/stru.png"))
                     .withAddress(String.format("test %s", i))
                     .withEmail(String.format("test@%s", i))
                     .withAllPhones(String.format("981111111%s", i))
