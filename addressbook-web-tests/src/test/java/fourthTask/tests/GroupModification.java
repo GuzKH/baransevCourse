@@ -21,6 +21,7 @@ public class GroupModification extends TestBase {
 
     @Test
     public void testGroupModification() {
+        app.goTo().groupPage();
         Groups before = app.db().groups();
         GroupData modifiedGroup = before.iterator().next();
         GroupData group = new GroupData()
@@ -35,8 +36,11 @@ public class GroupModification extends TestBase {
         assertThat(app.group().count(), equalTo(before.size()));
 
         //check whether group amount hasn't changed
-        Groups after = app.db().groups();
+        Groups after = app.db().groups();  //uploading group list from db
         assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
+        verifyGroupListInUI();
     }
+
+
 
 }

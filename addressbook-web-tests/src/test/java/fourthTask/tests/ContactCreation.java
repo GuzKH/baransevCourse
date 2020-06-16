@@ -57,7 +57,8 @@ public class ContactCreation extends TestBase {
                 line = reader.readLine();
             }
             Gson gson = new Gson();
-            List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>() {}.getType());  //List<ContactData>.class
+            List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>() {
+            }.getType());  //List<ContactData>.class
 
             return contacts.stream()
                     .map((c) -> new Object[]{c})
@@ -94,8 +95,9 @@ public class ContactCreation extends TestBase {
                                 .mapToInt((c) -> c.getId()).max().getAsInt())
         )));
 
-
+        verifyContactListinUI();
     }
+}
 
 //    @Test
 //    public void testCurrentDir(){
@@ -106,4 +108,4 @@ public class ContactCreation extends TestBase {
 //        System.out.println(currentDir.exists());
 //    }
 
-}
+

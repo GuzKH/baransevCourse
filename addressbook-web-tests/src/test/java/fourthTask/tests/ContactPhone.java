@@ -52,6 +52,8 @@ public class ContactPhone extends TestBase {
         assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
 //        assertThat(contact.getMobilePhone(), equalTo(cleaned(contactInfoFromEditForm.getMobilePhone())));
 //        assertThat(contact.getWorkPhone(), equalTo(cleaned(contactInfoFromEditForm.getWorkPhone())));
+
+        verifyContactListinUI();
     }
 
     // метод обрытных проверок

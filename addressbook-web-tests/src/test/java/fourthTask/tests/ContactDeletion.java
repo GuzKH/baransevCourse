@@ -54,6 +54,8 @@ public class ContactDeletion extends TestBase {
 
         assertThat(after, equalTo(before.without(deletedContact)));
 
+        verifyContactListinUI();
+
 
     }
 
