@@ -6,6 +6,7 @@ import com.thoughtworks.xstream.XStream;
 import fourthTask.model.ContactData;
 import fourthTask.model.Contacts;
 import fourthTask.model.GroupData;
+import fourthTask.model.Groups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -77,8 +78,16 @@ public class ContactCreation extends TestBase {
     }
 
     @Test(dataProvider = "validContactsFromJson")
-    public void testContactCreation(ContactData contact) throws Exception {
+    public void testContactCreation() throws Exception {
         File photo = new File("src/test/resources/stru.png");
+        Groups groups = app.db().groups();
+        ContactData contact = new ContactData()
+                .withFirstName("Test_Name")
+                .withLastName("Test_Surname")
+                .withPhoto(photo)
+                .inGroup(groups.iterator().next());
+
+
 
         app.goTo().homePageFromGroup();
         Contacts before = app.db().contacts();

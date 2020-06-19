@@ -3,11 +3,14 @@ package fourthTask.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -43,9 +46,9 @@ public class ContactData {
     @Column(name = "email")
     @Type(type = "text")
     private String email;
-    @Expose
-    @Transient //skipping this row
-    private String group;
+//    @Expose
+//    @Transient //skipping this row
+//    private String group;
     @Expose
     @Column(name = "photo")
     @Type(type = "text")
@@ -53,6 +56,12 @@ public class ContactData {
     @Expose
     @Transient //skipping this row
     private String allPhones;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
 
 
     public File getPhoto() {
@@ -64,10 +73,10 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withGroup(String group) {
-        this.group = group;
-        return this;
-    }
+//    public ContactData withGroup(String group) {
+//        this.group = group;
+//        return this;
+//    }
 
     public String getAllPhones() {
         return allPhones;
@@ -175,13 +184,22 @@ public class ContactData {
                 Objects.equals(email, that.email);
     }
 
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, address, email);
     }
 
-    public String getGroup() {
-        return group;
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
+        return  this;
     }
+
+//    public String getGroup() {
+//        return group;
+//    }
 
 }

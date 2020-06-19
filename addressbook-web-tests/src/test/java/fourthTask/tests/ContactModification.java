@@ -32,7 +32,8 @@ public class ContactModification extends TestBase {
                     .withHomePhone("111")
                     .withMobilePhone("222")
                     .withWorkPhone("333")
-                    .withGroup(group.getName()), true);
+                  //  .withGroup(group.getName())
+                    , true);
         }
     }
 

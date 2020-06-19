@@ -83,7 +83,10 @@ public class ContactDataGenerator {
                         contact.getAddress(),
                         contact.getEmail(),
                         contact.getAllPhones(),
-                        contact.getGroup()));
+//                        contact.getGroup()
+                        ""
+                        )
+                );
             }
         }
     }
@@ -96,8 +99,8 @@ public class ContactDataGenerator {
                     .withPhoto(new File("src/test/resources/stru.png"))
                     .withAddress(String.format("test %s", i))
                     .withEmail(String.format("test@%s", i))
-                    .withAllPhones(String.format("981111111%s", i))
-                    .withGroup(String.format("test%s", 1)));
+                    .withAllPhones(String.format("981111111%s", i)));
+       //             .withGroup(String.format("test%s", 1)));
         }
         return contacts;
     }
