@@ -87,8 +87,6 @@ public class ContactCreation extends TestBase {
                 .withPhoto(photo)
                 .inGroup(groups.iterator().next());
 
-
-
         app.goTo().homePageFromGroup();
         Contacts before = app.db().contacts();
 

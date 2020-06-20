@@ -27,7 +27,7 @@ public class ContactHelper extends HelperBase {
     public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstName());
         type(By.name("lastname"), contactData.getLastName());
-      //  attach(By.name("photo"), contactData.getPhoto());
+        //  attach(By.name("photo"), contactData.getPhoto());
         type(By.name("address"), contactData.getAddress());
 //        type(By.name("home"), contactData.getHomePhone());
 //        type(By.name("mobile"), contactData.getMobilePhone());
@@ -37,7 +37,8 @@ public class ContactHelper extends HelperBase {
         if (creation) {
             if (contactData.getGroups().size() > 0) {
                 Assert.assertTrue(contactData.getGroups().size() == 1);
-                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+                new Select(wd.findElement(By.name("new_group")))
+                        .selectByVisibleText(contactData.getGroups().iterator().next().getName());
             }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
@@ -60,8 +61,8 @@ public class ContactHelper extends HelperBase {
     }
 
 
-    public void delete(ContactData сontact) {
-        selectById(сontact.getId());
+    public void delete(ContactData contact) {
+        selectById(contact.getId());
         delete();
         acceptContactDeletion();
         acceptNextAlert = true;
@@ -72,6 +73,27 @@ public class ContactHelper extends HelperBase {
         click(locator);
         wd.findElement(locator).clear();
         wd.findElement(locator).sendKeys(text);
+    }
+
+    public void addingToGroup(ContactData contact) {
+        selectById(contact.getId());
+        addToGroup();
+        contactCache = null;
+    }
+
+    private void addToGroup() {
+        click(By.name("add"));
+    }
+
+
+    public void deletionFromGroup(ContactData contact) {
+        selectById(contact.getId());
+        deleteFromGroup();
+        contactCache = null;
+    }
+
+    private void deleteFromGroup() {
+        click(By.name("remove"));
     }
 
     public void initContactCreation() {
@@ -222,4 +244,5 @@ public class ContactHelper extends HelperBase {
         cell.get(7).findElement(By.tagName("a")).click();
 
     }
+
 }
