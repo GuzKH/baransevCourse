@@ -1,6 +1,6 @@
 package tests;
 
-import fourthTask.appmanager.ApplicationManager;
+import appmanager.ApplicationManager;
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;

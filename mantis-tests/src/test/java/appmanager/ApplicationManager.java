@@ -1,4 +1,4 @@
-package fourthTask.appmanager;
+package appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -54,5 +54,13 @@ public class ApplicationManager {
         } catch (NoSuchElementException e) {
             return false;
         }
+    }
+
+    public HttpSession newSession() {
+        return new HttpSession(this);
+    }
+
+    public String getProperty(String key) {
+        return properties.getProperty(key);
     }
 }
