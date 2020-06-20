@@ -1,0 +1,33 @@
+apply plugin: 'java'
+
+test {
+    useTestNG()
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.testng:testng:7.1.0'
+    implementation 'org.seleniumhq.selenium:selenium-java:4.0.0-alpha-5'
+   // testCompile group: 'org.slf4j', name: 'slf4j-nop', version: '2.0.0-alpha1'
+    implementation 'org.hamcrest:hamcrest:2.2'
+}
+
+task {
+    useTestNG {
+        suites 'src/test/resources/testng.xml'
+    }
+    if (project.hasProperty('browser')){
+        systemProperty 'browser', "${browser}"
+    }
+
+    if (project.hasProperty('target')){
+        systemProperty 'target', "${target}"
+    }
+
+    if (project.hasProperty('verifyUI')){
+        systemProperty 'verifyUI', "${verifyUI}"
+    }
+}

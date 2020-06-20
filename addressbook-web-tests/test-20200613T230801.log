@@ -1,6 +1,0 @@
-13156 [Test worker] INFO  fourthTask.tests.TestBase - Start test testGroupCreation
-20439 [Test worker] INFO  fourthTask.tests.TestBase - Stop test testGroupCreation
-20440 [Test worker] INFO  fourthTask.tests.TestBase - Start test testGroupCreation
-24829 [Test worker] INFO  fourthTask.tests.TestBase - Stop test testGroupCreation
-24830 [Test worker] INFO  fourthTask.tests.TestBase - Start test testGroupCreation
-28186 [Test worker] INFO  fourthTask.tests.TestBase - Stop test testGroupCreation

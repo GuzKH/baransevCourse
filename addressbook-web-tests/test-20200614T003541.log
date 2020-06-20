@@ -1,6 +1,0 @@
-10854 [Test worker] INFO  fourthTask.tests.TestBase - Start test testGroupCreation with parameters[GroupData{name='test 0'}]
-16722 [Test worker] INFO  fourthTask.tests.TestBase - Stop test testGroupCreation
-16723 [Test worker] INFO  fourthTask.tests.TestBase - Start test testGroupCreation with parameters[GroupData{name='test 1'}]
-20468 [Test worker] INFO  fourthTask.tests.TestBase - Stop test testGroupCreation
-20468 [Test worker] INFO  fourthTask.tests.TestBase - Start test testGroupCreation with parameters[GroupData{name='test 2'}]
-24323 [Test worker] INFO  fourthTask.tests.TestBase - Stop test testGroupCreation
