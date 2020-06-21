@@ -16,9 +16,9 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
     private Properties properties;
-    public WebDriver wd;
-
+    private WebDriver wd;
     private String browser;
+    private RegistrationHelper registrationHelper;
 
 
     public ApplicationManager(String browser) {
@@ -29,22 +29,13 @@ public class ApplicationManager {
     public void init() throws IOException {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-
-        if (browser.equals(BrowserType.FIREFOX)) {
-            wd = new FirefoxDriver();
-        } else if (browser.equals(BrowserType.CHROME)) {
-            wd = new ChromeDriver();
-        } else if (browser.equals(BrowserType.IE)) {
-            wd = new InternetExplorerDriver();
-        }
-
-        // wd = new FirefoxDriver();
-        wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-        wd.get(properties.getProperty("web.baseUrl"));
     }
 
     public void stop() {
-        wd.quit();
+        if(wd!=null){
+            wd.quit();
+        }
+
     }
 
     public boolean isElementPresent(By by) {
@@ -64,5 +55,29 @@ public class ApplicationManager {
     //
     public String getProperty(String key) {
         return properties.getProperty(key);
+    }
+
+    public RegistrationHelper registration() {
+        if(registrationHelper == null) {
+            registrationHelper = new RegistrationHelper(this);
+        } return registrationHelper;
+    }
+
+    //инициализация драйвера по запросу
+    public WebDriver getDriver() {
+        if (wd == null) {
+            if (browser.equals(BrowserType.FIREFOX)) {
+                wd = new FirefoxDriver();
+            } else if (browser.equals(BrowserType.CHROME)) {
+                wd = new ChromeDriver();
+            } else if (browser.equals(BrowserType.IE)) {
+                wd = new InternetExplorerDriver();
+            }
+
+            // wd = new FirefoxDriver();
+            wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+            wd.get(properties.getProperty("web.baseUrl"));
+        }
+        return wd;
     }
 }
