@@ -20,14 +20,14 @@ public class HttpSession {
 
     public HttpSession(ApplicationManager app) {
         this.app = app;
-        httpclient = HttpClients.custom().setRedirectStrategy(new LaxRedirectStrategy()).build();
+        httpclient = HttpClients.custom().setRedirectStrategy(new LaxRedirectStrategy()).build(); // создание новой сессии для работы с протоколом http, объект будет отправлять запросы на сервер
     }
 
-    public boolean login(String username) throws IOException {
-        HttpPost post = new HttpPost(app.getProperty("web.baseUrl") + "/login.php");
+    public boolean login(String username, String password) throws IOException {
+        HttpPost post = new HttpPost(app.getProperty("web.baseUrl") + "/login.php"); // post request
         List<BasicNameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("username", username));
-        params.add(new BasicNameValuePair("password", "root"));
+        params.add(new BasicNameValuePair("password", password));
         params.add(new BasicNameValuePair("secure_session", "on"));
         params.add(new BasicNameValuePair("return", "index.php"));
         post.setEntity(new UrlEncodedFormEntity(params));
@@ -45,7 +45,8 @@ public class HttpSession {
     }
 
     public boolean isLoggedInAs(String username) throws IOException {
-        HttpGet get = new HttpGet(app.getProperty("web.baseUrl") + ".index.php");
+        HttpGet get = new HttpGet(app.getProperty("web.baseUrl") + "/my_view_page.php");    //  http://localhost/mantisbt-2.24.1/my_view_page.php
+
         CloseableHttpResponse response = httpclient.execute(get);
         String body = geTextFrom(response);
         return body.contains(String.format("<span class=\"user-info\">%s</span>", username));

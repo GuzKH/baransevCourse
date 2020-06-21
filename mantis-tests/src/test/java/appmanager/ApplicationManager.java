@@ -56,10 +56,12 @@ public class ApplicationManager {
         }
     }
 
+    // инициализация помошника при каждом обращении
     public HttpSession newSession() {
         return new HttpSession(this);
     }
 
+    //
     public String getProperty(String key) {
         return properties.getProperty(key);
     }
