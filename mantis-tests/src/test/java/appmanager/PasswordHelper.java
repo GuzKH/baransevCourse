@@ -1,7 +1,6 @@
 package appmanager;
 
 import model.MailMessage;
-import org.apache.http.client.methods.HttpPost;
 import org.openqa.selenium.By;
 
 import javax.mail.MessagingException;
@@ -37,7 +36,8 @@ public class PasswordHelper extends HelperBase {
         String email = "user1592778356636@localhost.localdomain";
 
         //when
-       // HttpPost post = new HttpPost(app.getProperty("web.baseUrl") + "/manage_user_page.php"); // post request
+
+        // HttpPost post = new HttpPost(app.getProperty("web.baseUrl") + "/manage_user_page.php"); // post request
         loginAsAdmin();
         chooseUser();
         resetPassword();
