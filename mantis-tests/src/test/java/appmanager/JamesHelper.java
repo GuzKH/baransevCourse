@@ -128,6 +128,7 @@ public class JamesHelper {
         return folder;
     }
 
+
     public List<MailMessage> waitForMail(String username, String password, long timeout) throws MessagingException {
         long now = System.currentTimeMillis();
         while (System.currentTimeMillis() < now + timeout) {
