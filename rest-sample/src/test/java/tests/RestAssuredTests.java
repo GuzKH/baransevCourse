@@ -8,19 +8,25 @@ import com.jayway.restassured.RestAssured;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
+import org.hamcrest.core.Is;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertEquals;
 
-public class RestAssuredTests {
+public class RestAssuredTests extends TestBase{
 
     @BeforeClass
     public void init(){
-        RestAssured.authentication = RestAssured.basic("288f44776e7bec4bf44fdfeb1e646490", "");
+        RestAssured.authentication =
+                RestAssured.basic("288f44776e7bec4bf44fdfeb1e646490", "");
     }
 
     @Test
@@ -34,28 +40,26 @@ public class RestAssuredTests {
         assertEquals(newIssues, oldIssues);
     }
 
+    @Test
+    public void testModifyIssue(){
+//        List<Issue> oldIssues = new ArrayList<>(getIssues());
+//        Collections.reverse(oldIssues);
+//        Issue lastIssue = oldIssues.iterator().next();
 
-    private Set<Issue> getIssues()   {
-//        String json = getExecutor().execute(Request.Get("https://bugify.stqa.ru/api/issues.json?page=1&limit=200"))
-//                .returnContent().asString();
-        String json = RestAssured.get("https://bugify.stqa.ru/api/issues.json?page=1&limit=200").asString();
-        JsonElement parsed = new JsonParser().parse(json);
-        JsonElement issues = parsed.getAsJsonObject().get("issues");
-        return new Gson().fromJson(issues, new TypeToken<Set<Issue>>(){}.getType());
+        Issue lastIssue = getIssue(118);
+        int idLastIssue = lastIssue.getId();
+        String oldSubject = lastIssue.getSubject();
+        skipIfNotFixed(idLastIssue);
+
+        modifyIssue(idLastIssue, oldSubject);
+        Issue updatedSubjectIssue = getIssue(idLastIssue);
+
+        assertEquals(updatedSubjectIssue.getSubject(), oldSubject + " kek");
+
+
+
     }
 
 
-    private int createIssue(Issue newIssue)   {
-//        String json = getExecutor().execute(Request.Post("https://bugify.stqa.ru/api/issues.json")
-//                .bodyForm(new BasicNameValuePair("subject", newIssue.getSubject()),
-//                        new BasicNameValuePair("description", newIssue.getDescription())))
-//                .returnContent().asString();
-        String json = RestAssured.given()
-                .parameter("subject", newIssue.getSubject())
-                .parameter("description", newIssue.getDescription())
-                .post("https://bugify.stqa.ru/api/issues.json").asString();
-        JsonElement parsed = new JsonParser().parse(json);
-        return parsed.getAsJsonObject().get("issue_id").getAsInt();
-    }
 
 }

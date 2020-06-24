@@ -7,6 +7,16 @@ public class Issue {
     private int id;
     private String subject;
     private String description;
+    private int state;
+
+    public int getState() {
+        return state;
+    }
+
+    public Issue withState(int state) {
+        this.state = state;
+        return this;
+    }
 
     @Override
     public boolean equals(Object o) {
