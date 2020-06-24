@@ -27,6 +27,17 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/rest-sample" />
+        <option name="gradleHome" value="C:/gradle/gradle-6.3" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/rest-sample" />
+          </set>
+        </option>
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/soap-sample" />
         <option name="gradleHome" value="C:/gradle/gradle-6.3" />
         <option name="modules">
