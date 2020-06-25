@@ -108,6 +108,9 @@ public class JamesHelper {
     }
 
     public void drainEmail(String username, String password) throws MessagingException {
+        initTelnetSession();
+        closeTelnetSession();
+
         Folder inbox = openInbox(username, password);
         for (Message message : inbox.getMessages()) {
             message.setFlag(Flags.Flag.DELETED, true);
@@ -130,6 +133,9 @@ public class JamesHelper {
 
 
     public List<MailMessage> waitForMail(String username, String password, long timeout) throws MessagingException {
+        initTelnetSession();
+        closeTelnetSession();
+
         long now = System.currentTimeMillis();
         while (System.currentTimeMillis() < now + timeout) {
             List<MailMessage> allMail = getAllMail(username, password);

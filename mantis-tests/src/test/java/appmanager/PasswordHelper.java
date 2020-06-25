@@ -15,8 +15,10 @@ public class PasswordHelper extends HelperBase {
         click(By.cssSelector("input[value='Reset Password']"));
     }
 
-    public void chooseTheLastUser() {
-        click(By.xpath("(//a[contains(@href,'manage_user_edit_page')])[last()]"));
+    public void chooseTheLastUser(int id) {
+//        click(By.xpath("(//a[contains(@href,'manage_user_edit_page')])[last()]"));
+        String xpathQuery = "//a[@href='manage_user_edit_page.php?user_id=" + id + "']";
+        click(By.xpath(xpathQuery));
     }
 
     public void goToManageUsers() {
@@ -46,9 +48,9 @@ public class PasswordHelper extends HelperBase {
     }
 
 
-    public void chooseUser() {
+    public void chooseUser(int userId) {
         goToManageUsers();
-        chooseTheLastUser();
+        chooseTheLastUser(userId);
     }
 
 //    public void changePassword() throws MessagingException {

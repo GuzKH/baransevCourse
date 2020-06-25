@@ -1,5 +1,7 @@
 package tests;
 
+import model.UserData;
+import model.Users;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -12,23 +14,31 @@ public class ChangingPasswordTest extends TestBase {
     @Test
     public void testChangePassword() throws IOException, MessagingException {
         //Given
-        long now = System.currentTimeMillis();
-        String user = String.format("user%d", now);
-        String oldPassword = "password";
-        String email = String.format("user%d@localhost", now);
-
-        app.passwordHelper().createUser(user, oldPassword, email);
-
+//        long now = System.currentTimeMillis();
+//        app.passwordHelper().createUser(user, password, email);
         String newPassword = "passwordNew";
+        Users users = app.dbHelper().users();
+        UserData commonUser = users.stream()
+                .filter(dbUser ->
+                        !dbUser.getUsername().equals("administrator") && !dbUser.getUsername().equals("administrator4")
+                        && !dbUser.getEmail().contains("localdomain")
+                )
+                .findFirst().get();
 
+        String user = commonUser.getUsername();
+        String password = "password";
+        String email = commonUser.getEmail();
+        int userId = commonUser.getId();
+
+        app.james().drainEmail(user, password);
 
         //When
         app.passwordHelper().goToLoginPage();
         app.passwordHelper().loginAsAdmin();
-        app.passwordHelper().chooseUser();
+        app.passwordHelper().chooseUser(userId);
         app.passwordHelper().resetPassword();
 
-        String confirmationLink = app.passwordHelper().getConfirmationLink(user, oldPassword, email);
+        String confirmationLink = app.passwordHelper().getConfirmationLink(user, password, email);
         app.registration().finish(confirmationLink, newPassword);
 
         //Then
