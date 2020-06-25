@@ -68,7 +68,7 @@ public class TestBase {
     private boolean isIssueOpen(int issueId) {
         Issue issue = getIssue(issueId);
 
-        if (issue.getState() == 2 || issue.getState() == 3) {
+        if (issue.getState_name().equals("Resolved")  || issue.getState_name().equals("Closed")) {
             return false;
         }
         return true;

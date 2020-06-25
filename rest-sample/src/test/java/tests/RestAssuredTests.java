@@ -46,7 +46,7 @@ public class RestAssuredTests extends TestBase{
 //        Collections.reverse(oldIssues);
 //        Issue lastIssue = oldIssues.iterator().next();
 
-        Issue lastIssue = getIssue(118);
+        Issue lastIssue = getIssue(117);
         int idLastIssue = lastIssue.getId();
         String oldSubject = lastIssue.getSubject();
         skipIfNotFixed(idLastIssue);
