@@ -79,8 +79,8 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    public void editContactCreation() {
-        click(By.xpath("//img[@alt='Edit']"));
+    public void editContactCreation(int id) {
+        click(By.xpath("//a[@href='edit.php?id=" + id +"']"));
     }
 
     public void updateContactEdition() {
