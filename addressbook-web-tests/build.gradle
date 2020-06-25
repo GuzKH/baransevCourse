@@ -23,11 +23,6 @@ dependencies {
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.39'
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.17.Final'
-
-
-
-
-
 }
 
 task testGroups(type: Test) {

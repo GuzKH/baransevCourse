@@ -3,9 +3,9 @@
 <suite name="Suite1" verbose="1" >
     <test name="Groups" >
         <classes>
-            <class name="fourthTask.tests.GroupCreation" />
+ <!--           <class name="fourthTask.tests.GroupCreation" />  -->
             <class name="fourthTask.tests.GroupModification" />
-            <class name="fourthTask.tests.GroupDeletion" />
+<!--            <class name="fourthTask.tests.GroupDeletion" />-->
         </classes>
     </test>
 </suite>
