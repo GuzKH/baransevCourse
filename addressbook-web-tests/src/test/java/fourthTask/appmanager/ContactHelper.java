@@ -56,7 +56,7 @@ public class ContactHelper extends HelperBase {
 
     public void modify(ContactData contact) {
         selectById(contact.getId());
-        edit();
+        edit(contact.getId());
         fillContactForm(contact, false);
         updateContactEdition();
         contactCache = null;
@@ -74,7 +74,10 @@ public class ContactHelper extends HelperBase {
     public void type(By locator, String text) {
         click(locator);
         wd.findElement(locator).clear();
-        wd.findElement(locator).sendKeys(text);
+
+        if (text != null && !text.isEmpty())  {
+            wd.findElement(locator).sendKeys(text);
+        }
     }
 
     public void addingToGroup(ContactData contact) {
@@ -138,8 +141,9 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    public void edit() {
-        click(By.xpath("//img[@alt='Edit']"));
+    public void edit(int id) {
+//        click(By.xpath("//img[@alt='Edit']"));
+        click(By.xpath("//a[@href='edit.php?id=" + id +"']"));
     }
 
     public void updateContactEdition() {
