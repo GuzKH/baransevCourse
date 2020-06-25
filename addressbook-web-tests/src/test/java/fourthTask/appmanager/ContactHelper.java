@@ -33,6 +33,8 @@ public class ContactHelper extends HelperBase {
 //        type(By.name("mobile"), contactData.getMobilePhone());
 //        type(By.name("work"), contactData.getWorkPhone());
         type(By.name("email"), contactData.getEmail());
+        type(By.name("email2"), contactData.getEmail2());
+        type(By.name("email3"), contactData.getEmail3());
 
         if (creation) {
             if (contactData.getGroups().size() > 0) {
@@ -201,6 +203,7 @@ public class ContactHelper extends HelperBase {
             String address = cells.get(3).getText();
             String email = cells.get(4).getText();
             String allPhones = cells.get(5).getText();
+            String allEmail = cells.get(4).getText();
 
             contactCache.add(new ContactData()
                     .withId(id)
@@ -208,7 +211,9 @@ public class ContactHelper extends HelperBase {
                     .withLastName(lastName)
                     .withAddress(address)
                     .withEmail(email)
-                    .withAllPhones(allPhones));
+                    .withAllPhones(allPhones)
+                    .withAllEmails(allEmail)
+            );
         }
         return new Contacts(contactCache);
     }
@@ -220,6 +225,12 @@ public class ContactHelper extends HelperBase {
         String homePhone = wd.findElement(By.name("home")).getAttribute("value");
         String mobilePhone = wd.findElement(By.name("mobile")).getAttribute("value");
         String workPhone = wd.findElement(By.name("work")).getAttribute("value");
+        String email = wd.findElement(By.name("email")).getAttribute("value");
+        String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+        String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getAttribute("value");
+        String address2 = wd.findElement(By.name("address2")).getAttribute("value");
+
         wd.navigate().back();
         return new ContactData()
                 .withId(contact.getId())
@@ -227,7 +238,12 @@ public class ContactHelper extends HelperBase {
                 .withFirstName(firstName)
                 .withHomePhone(homePhone)
                 .withMobilePhone(mobilePhone)
-                .withWorkPhone(workPhone);
+                .withWorkPhone(workPhone)
+                .withEmail(email)
+                .withEmail2(email2)
+                .withEmail3(email3)
+                .withAddress(address)
+                .withAddress2(address2);
 
     }
 

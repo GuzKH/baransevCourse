@@ -31,6 +31,10 @@ public class ContactData {
     @Type(type = "text")
     private String address;
     @Expose
+    @Column(name = "address2")
+    @Type(type = "text")
+    private String address2;
+    @Expose
     @Column(name = "home")
     @Type(type = "text")
     private String homePhone;
@@ -46,6 +50,14 @@ public class ContactData {
     @Column(name = "email")
     @Type(type = "text")
     private String email;
+    @Expose
+    @Column(name = "email2")
+    @Type(type = "text")
+    private String email2;
+    @Expose
+    @Column(name = "email3")
+    @Type(type = "text")
+    private String email3;
 //    @Expose
 //    @Transient //skipping this row
 //    private String group;
@@ -56,6 +68,45 @@ public class ContactData {
     @Expose
     @Transient //skipping this row
     private String allPhones;
+    @Expose
+    @Transient //skipping this row
+    private String allEmails;
+
+    public String getAllEmails() {
+        return allEmails;
+    }
+
+    public ContactData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
+        return this;
+    }
+
+    public String getAddress2() {
+        return address2;
+    }
+
+    public ContactData withAddress2(String address2) {
+        this.address2 = address2;
+        return this;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public ContactData withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+    }
+
+    public String getEmail3() {
+        return email3;
+    }
+
+    public ContactData withEmail3(String email3) {
+        this.email3 = email3;
+        return this;
+    }
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "address_in_groups",
