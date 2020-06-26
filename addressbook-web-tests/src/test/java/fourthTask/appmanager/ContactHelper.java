@@ -2,6 +2,7 @@ package fourthTask.appmanager;
 
 import fourthTask.model.ContactData;
 import fourthTask.model.Contacts;
+import fourthTask.model.GroupData;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -55,7 +56,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void modify(ContactData contact) {
-        selectById(contact.getId());
+        selectContactById(contact.getId());
         edit(contact.getId());
         fillContactForm(contact, false);
         updateContactEdition();
@@ -64,7 +65,7 @@ public class ContactHelper extends HelperBase {
 
 
     public void delete(ContactData contact) {
-        selectById(contact.getId());
+        selectContactById(contact.getId());
         delete();
         acceptContactDeletion();
         acceptNextAlert = true;
@@ -80,19 +81,34 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    public void addingToGroup(ContactData contact) {
-        selectById(contact.getId());
-        addToGroup();
-        contactCache = null;
-    }
+//    public void addingToGroup(ContactData contact) {
+//        selectContactById(contact.getId());
+//        addToGroup();
+//        contactCache = null;
+//    }
 
     private void addToGroup() {
         click(By.name("add"));
     }
 
+    public void select(By locator, String value) {
+        new Select(wd.findElement(locator)).selectByVisibleText(value);
+    }
 
-    public void deletionFromGroup(ContactData contact) {
-        selectById(contact.getId());
+    public void addingToGroup(ContactData contact, GroupData group) {
+        selectContactById(contact.getId());
+        selectGroup(group);
+        addToGroup();
+        contactCache = null;
+    }
+
+    private void selectGroup(GroupData group) {
+        select(By.name("to_group"), group.getName());
+    }
+
+    public void deletionFromGroup(ContactData contact, GroupData groupToRemove) {
+        select(By.name("group"), groupToRemove.getName());
+        selectContactById(contact.getId());
         deleteFromGroup();
         contactCache = null;
     }
@@ -122,7 +138,7 @@ public class ContactHelper extends HelperBase {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
-    public void selectById(int id) {
+    public void selectContactById(int id) {
         wd.findElement(By.cssSelector("input[value = '" + id + "']")).click();
     }
 

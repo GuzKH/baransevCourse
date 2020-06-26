@@ -4,8 +4,6 @@ import fourthTask.model.ContactData;
 import fourthTask.model.Contacts;
 import fourthTask.model.GroupData;
 import fourthTask.model.Groups;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -30,35 +28,32 @@ public class ContactDeletionFromGroup extends TestBase {
                             .withLastName("test2")
                     , true);
         }
-
-
-            ContactData contact = app.db().contacts().iterator().next();
-//            GroupData group = app.db().groups().iterator().next();
-
-            app.contact().addingToGroup(contact);
-            app.goTo().homeFromGroup();
     }
 
     @Test
     public void contactDeletionFromGroup() throws InterruptedException {
-        Groups groups = app.db().groups();
-        Contacts beforeContacts = app.db().contacts();
-        ContactData contact = beforeContacts.iterator().next();
-        app.contact().deletionFromGroup(contact);
-        app.goTo().homeFromGroup();
-        Contacts afterUI = app.contact().all();
-//        Thread.sleep(1000);
+        Groups allGroups = app.db().groups();
+        Contacts allContacts = app.db().contacts();
 
-        assertThat(afterUI, equalTo(beforeContacts.without(contact)));
+        if (allContacts.stream()
+                .noneMatch(contact -> contact.getGroups().size() > 0)) {
+            app.contact().addingToGroup(allContacts.iterator().next(), allGroups.iterator().next());
+            app.goTo().homePageFromGroup();
+        }
+        ContactData contactToRemoveGroup = app.db().contacts().stream()
+                .filter(contact -> contact.getGroups().size() > 0).findAny().get();
 
-        Contacts afterDB = app.db().contacts();
-        assertThat(afterDB, equalTo(beforeContacts));
+        Groups beforeGroups = contactToRemoveGroup.getGroups();
+        GroupData groupToRemove = beforeGroups.iterator().next();
+
+        app.contact().deletionFromGroup(contactToRemoveGroup, groupToRemove);
+
+        Groups afterGroups = app.db().contacts().stream()
+                .filter(contract -> contract.getId() == contactToRemoveGroup.getId()).findFirst().get().getGroups();
+        assertThat(afterGroups, equalTo(beforeGroups.without(groupToRemove)));
 
         verifyContactListinUI();
     }
 }
-
-//         new Select(wd.findElement(By.name("new_group")))
-//                .selectByVisibleText(contactData.getGroups().iterator().next().getName());
 
 

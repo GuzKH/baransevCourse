@@ -1,5 +1,6 @@
 package fourthTask.appmanager;
 
+import fourthTask.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -37,5 +38,12 @@ public class NavigationHelper extends HelperBase {
             return;
         }
         click(By.linkText("group page \"test1\""));
+    }
+
+    public void homeFromGroup(GroupData group) {
+        if (isElementPresent(By.id("maintable"))) {
+            return;
+        }
+        click(By.linkText("group page \"" + group.getName() + "\""));
     }
 }

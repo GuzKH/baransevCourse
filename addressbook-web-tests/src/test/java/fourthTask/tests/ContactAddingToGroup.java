@@ -15,40 +15,49 @@ public class ContactAddingToGroup extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         GroupData group = new GroupData().withName("test1");
+//        group.getId();
 
         if (app.db().groups().size() == 0) {
             app.goTo().groupPage();
             app.group().create(new GroupData().withName(group.getName()));
         }
 
-
         if (app.db().contacts().size() == 0) {
             app.goTo().homePageFromGroup();
             app.contact().create(new ContactData()
                             .withFirstName("test1")
                             .withLastName("test2")
+                            .inGroup(group)
                     , true);
         }
     }
 
     @Test
     public void contactAddingToGroup() throws InterruptedException {
-        Groups groups = app.db().groups();
+        Groups allGroups = app.db().groups();
+        Contacts contacts = app.db().contacts();
+
         app.goTo().homePageFromGroup();
-        Contacts beforeContacts = app.db().contacts();
-        ContactData contact = beforeContacts.iterator().next();
-        app.contact().addingToGroup(contact);
-        app.goTo().homeFromGroup();
-//        Thread.sleep(1000);
 
-        assertThat(app.contact().count(), equalTo(beforeContacts.size()));
+        if (contacts.stream()
+                .noneMatch(contact -> contact.getGroups().size() < allGroups.size())) {
+            app.contact().create(new ContactData()
+                            .withFirstName("test1")
+                            .withLastName("test2")
+                    , true);
+        }
+        ContactData contactToAddGroup = contacts.stream()
+                .filter(contact -> contact.getGroups().size() < allGroups.size()).iterator().next();
 
-//        Contacts after = app.db().contacts();
-//        assertThat(after, equalTo(before.withAdded(
-//                contact.withId(
-//                        after.stream()
-//                                .mapToInt((c) -> c.getId()).max().getAsInt())
-//        )));
+        Groups beforeGroups = contactToAddGroup.getGroups();
+        GroupData groupToAdd = allGroups.without(beforeGroups).iterator().next();
+
+        app.contact().addingToGroup(contactToAddGroup, groupToAdd);
+        app.goTo().homeFromGroup(groupToAdd);
+
+        Groups afterGroups = app.db().contacts().stream()
+                .filter(s -> s.getId() == contactToAddGroup.getId()).findFirst().get().getGroups();
+        assertThat(afterGroups, equalTo(beforeGroups.withAdded(groupToAdd)));
 
         verifyContactListinUI();
     }
